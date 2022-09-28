@@ -1,0 +1,51 @@
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../../assets/css/add.css" />
+    <title>ADD DEPARTMENT</title>
+  </head>
+  <body>
+    <header>
+      <img src="../../assets//images/rhibms.jpeg" alt="" />
+      <ul>
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="../students/add.html">New Student</a></li>
+        <li>
+          <a href="../students/registeredStudents.html">Registered Student</a>
+        </li>
+        <li><a href="../departments/allDepartments.html">Departments</a></li>
+        <li><a href="../expenditures/expenseList.html">Expenditures</a></li>
+      </ul>
+    </header>
+    <div class="form-wrapper">
+      <form>
+        <div class="input-div">
+          <input
+            required
+            type="text"
+            id="departmentName"
+            placeholder="Department name"
+          />
+        </div>
+        <div class="input-div">
+          <input
+            required
+            type="text"
+            id="departmentDescription"
+            placeholder="Brief Description"
+          />
+        </div>
+        <div class="input-div">
+          <input
+            required
+            type="number"
+            id="runningCost"
+            placeholder="Running cost"
+          />
+        </div>
+        <button type="submit">Add Student</button>
+      </form>
+    </div>
+
+    <script src="./addDepartment.js"></script>
+  </body>
+</html>

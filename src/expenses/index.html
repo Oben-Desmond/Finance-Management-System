@@ -1,0 +1,206 @@
+<!--index.html-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RHIBMS</title>
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+</head>
+
+<body>
+    <header>
+        <img src="../../assets/images/rhibms.jpeg" alt="" />
+        <!-- <ul>
+            <li><a href="../students/add.html">New Student</a></li>
+            <li>
+                <a href="../students/registeredStudents.html">Registered Student</a>
+            </li>
+            <li><a href="../departments/addDepartment.html">New Department</a></li>
+            <li><a href="../departments/allDepartments.html">Departments</a></li>
+            <li><a href="../expenditures/expenseList.html">Expenditures</a></li> -->
+        <link rel="stylesheet" href="../../assets/css/registeredStudents.css" />
+        <link rel="stylesheet" href="../../assets/css/add.css" />
+        <script src="../jquery.js"></script>
+        <script type="text/javascript" src="../../DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css"
+            href="../../DataTables/DataTables-1.12.1/css/jquery.dataTables.min.css" />
+
+        <script type="text/javascript" src="../../DataTables/Buttons-2.2.3/js/dataTables.buttons.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../DataTables/Buttons-2.2.3/css/buttons.dataTables.min.css" />
+        <script type="text/javascript" src="../../DataTables/JSZip-2.5.0/jszip.min.js"></script>
+        <script type="text/javascript" src="../../DataTables/Buttons-2.2.3/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" src="../../DataTables//pdfmake-0.1.36/pdfmake.min.js"></script>
+        <script type="text/javascript" src="../../DataTables//pdfmake-0.1.36/vfs_fonts.js"></script>
+        </ul>
+    </header>
+    <div class="dashboard-wrapper">
+        <div class="cards">
+            <div class="card incomeCard">
+                <h3>TOTAL EXPENSES</h3>
+                <span id="total-expenses">0</span>
+            </div>
+            <div class="card rnxCostCard">
+                <h3>TOTAL BUDGET HEADS</h3>
+                <span id="total-bh">0</span>
+            </div>
+            <!-- <div class="card rnxCostBalanceCard">
+                <h3>RUNNUNG COST BALANCE</h3>
+                <span id="runningCostBalance">0</span>
+            </div>
+            <div class="card numStudentsCard">
+                <h3>NUMBER OF STUDENTS</h3>
+                <span id="studentNumber">0</span>
+            </div>
+            <div class="card numDeptCard">
+                <h3>NUMBER OF DEPARTMENTS</h3>
+                <span id="departmentNumber">0</span>
+            </div> -->
+        </div>
+        <div class="spacer"></div>
+        <button class="accordion">Budget Heads</button>
+        <div class="panel">
+            <div class="table-wrapper">
+                <table id="studentList">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>NAME</th>
+                            <th>AMOUNT</th>
+                            <th>DESCRIPTION</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expense-table"></tbody>
+                </table>
+            </div>
+        </div>
+        <button class="accordion">Expenses</button>
+        <div class="panel">
+            <div class="table-wrapper">
+                <table id="studentList">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>NAME</th>
+                            <th>AMOUNT</th>
+                            <th>DESCRIPTION</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenses-table"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <button class="accordion">Create Budget Heads</button>
+        <div class="panel">
+            <div class="form-wrapper">
+                <form id="budget-head-form">
+                    <div class="input-div">
+                        <input required type="text" id="create-bh-name" placeholder="NAME OF B.H" />
+                    </div>
+                    <div class="input-div">
+                        <input required type="number" id="create-bh-amount" placeholder="Assigned Amount" />
+                    </div>
+                    <div class="input-div">
+                        <input required type="text" id="create-bh-desc" placeholder="Description" />
+                    </div>
+                    <div id="create-bh-expense-error" style="margin-top: 20dp; color:red"
+                        class="expense-error padding-top text-danger"></div>
+
+
+                    <button type="submit">Add Budget Head</button>
+                </form>
+            </div>
+        </div>
+
+
+        <button class="accordion">Release Budgets</button>
+        <div class="panel income">
+            <div class="form-wrapper">
+                <form id="expense-form">
+                    <div class="input-div">
+                        <select value="Budget Head" name="" id="select-bh"></select>
+                    </div>
+                    <div class="input-div">
+                        <input required type="text" id="bh-description" placeholder="Reason" />
+                    </div>
+                    <div class="input-div">
+                        <input required type="text" id="bh-person" placeholder="Person" />
+                    </div>
+                    <div class="input-div">
+                        <input required type="number" id="bh-amount" placeholder="Amount" />
+                    </div>
+                    <!-- <div class="input-div">
+                        <input required type="date" id="studentLevel" placeholder="Date" />
+                    </div> -->
+                    <div id="bh-expense-error" style="color: red; margin-top:20px"
+                        class="expense-error padding text-danger"></div>
+                    <div id="expense-success" class="expense-success padding text-success"></div>
+
+                    <button class="btn-warning btn">Release Budget Head</button>
+                </form>
+            </div>
+        </div>
+        <!-- <div class="income">
+            <form id="expenseForm">
+                <h3>Register Expenditure</h3>
+                <div>
+                    <select name="departments" id="departments">
+                        <option>Select Department</option>
+                        <option value="volvo">Stationaries</option>
+                        <option value="saab">Equipments</option>
+                        <option value="mercedes">Chemicals</option>
+                        <option value="audi">Salaries</option>
+                        <option value="audi">CNPS</option>
+                    </select>
+                    <input required type="text" id="category" placeholder="Reason" />
+                    <input required type="number" id="amount" placeholder="Amount" />
+                    <input required type="text" id="issuedTo" placeholder="Issued to" />
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div> -->
+    </div>
+
+
+    <!-- The Modal -->
+    <div id="editModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="form-wrapper">
+                <form id="updateForm">
+                    <div class="input-div">
+                        <input required type="text" id="edit-bh-name" placeholder="Budget Head Name" value="" />
+                    </div>
+                    <div class="input-div">
+                        <input required type="text" id="edit-bh-desc" placeholder="Description" value="" />
+                    </div>
+                    <div class="input-div">
+                        <input required type="number" id="edit-bh-amount" placeholder="Amount" value="" />
+                    </div>
+                    <button type="submit">Update Department</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="deleteModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="closeDelete">&times;</span>
+            <div id="question"></div>
+        </div>
+    </div>
+
+    <script src="./expense_renderer.js"></script>
+    <script src="./expDashboard.js"></script>
+    <script>
+
+
+    </script>
+</body>
+
+</html>

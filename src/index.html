@@ -1,0 +1,73 @@
+<!--index.html-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>RHIBMS</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+
+<body>
+  <header>
+    <img src="../assets//images/rhibms.jpeg" alt="" />
+    <ul>
+      <li><a href="./students/add.html">New Student</a></li>
+      <li>
+        <a href="./students/registeredStudents.html">Registered Student</a>
+      </li>
+      <li><a href="./departments/addDepartment.html">New Department</a></li>
+      <li><a href="./departments/allDepartments.html">Departments</a></li>
+      <li><a href="./expenditures/expenseList.html">Expenditures</a></li>
+    </ul>
+  </header>
+  <div class="dashboard-wrapper">
+    <div class="cards">
+      <div class="card incomeCard">
+        <h3>TOTAL INCOME</h3>
+        <span id="totalIncome">0</span>
+      </div>
+      <div class="card rnxCostCard">
+        <h3>TOTAL RUNNUNG COST</h3>
+        <span id="runningCost">0</span>
+      </div>
+      <div class="card rnxCostBalanceCard">
+        <h3>RUNNUNG COST BALANCE</h3>
+        <span id="runningCostBalance">0</span>
+      </div>
+      <div class="card numStudentsCard">
+        <h3>NUMBER OF STUDENTS</h3>
+        <span id="studentNumber">0</span>
+      </div>
+      <div class="card numDeptCard">
+        <h3>NUMBER OF DEPARTMENTS</h3>
+        <span id="departmentNumber">0</span>
+      </div>
+    </div>
+    <div class="income">
+      <form id="expenseForm">
+        <h3>Register Expenditure</h3>
+        <div>
+          <select name="departments" id="departments">
+            <option>Select Department</option>
+            <option value="volvo">Stationaries</option>
+            <option value="saab">Equipments</option>
+            <option value="mercedes">Chemicals</option>
+            <option value="audi">Salaries</option>
+            <option value="audi">CNPS</option>
+          </select>
+          <input required type="text" id="category" placeholder="Reason" />
+          <input required type="number" id="amount" placeholder="Amount" />
+          <input required type="text" id="issuedTo" placeholder="Issued to" />
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    window.location = "expenses/index.html"
+  </script>
+</body>
+
+</html>

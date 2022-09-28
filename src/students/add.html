@@ -1,0 +1,66 @@
+<html lang="en">
+  <head>
+    <title>ADD STUDENT</title>
+    <link rel="stylesheet" href="../../assets/css/add.css" />
+  </head>
+  <body>
+    <header>
+      <img src="../../assets//images/rhibms.jpeg" alt="" />
+      <ul>
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="./registeredStudents.html">Registered Student</a></li>
+        <li><a href="../departments/addDepartment.html">New Department</a></li>
+        <li><a href="../departments/allDepartments.html">Departments</a></li>
+        <li><a href="../expenditures/expenseList.html">Expenditures</a></li>
+      </ul>
+    </header>
+    <div class="form-wrapper">
+      <form>
+        <div class="input-div">
+          <input
+            required
+            type="text"
+            id="studentNumber"
+            placeholder="Student Number"
+          />
+        </div>
+        <div class="input-div">
+          <input
+            required
+            type="text"
+            id="registrationNumber"
+            placeholder="Registration Number"
+          />
+        </div>
+        <div class="input-div">
+          <input
+            required
+            type="text"
+            id="studentName"
+            placeholder="Student Name"
+          />
+        </div>
+        <div class="input-div">
+          <input
+            required
+            type="text"
+            id="studentLevel"
+            placeholder="Student Level"
+          />
+        </div>
+        <div class="input-div">
+          <input required type="text" id="section" placeholder="Section" />
+        </div>
+        <div class="input-div">
+          <input required type="number" id="amount" placeholder="Amount" />
+        </div>
+        <div class="input-div">
+          <input required type="number" id="balance" placeholder="Balance" />
+        </div>
+        <button type="submit">Add Student</button>
+      </form>
+    </div>
+
+    <script src="add.js"></script>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../../assets/css/registeredStudents.css" />
+    <script src="../jquery.js"></script>
+    <script
+      type="text/javascript"
+      src="../../DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../DataTables/DataTables-1.12.1/css/jquery.dataTables.min.css"
+    />
+
+    <script
+      type="text/javascript"
+      src="../../DataTables/Buttons-2.2.3/js/dataTables.buttons.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../DataTables/Buttons-2.2.3/css/buttons.dataTables.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="../../DataTables/JSZip-2.5.0/jszip.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../../DataTables/Buttons-2.2.3/js/buttons.html5.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../../DataTables//pdfmake-0.1.36/pdfmake.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../../DataTables//pdfmake-0.1.36/vfs_fonts.js"
+    ></script>
+    <title>EXPENSES</title>
+  </head>
+  <body>
+    <header>
+      <img src="../../assets//images/rhibms.jpeg" alt="" />
+      <ul>
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="../students/add.html">New Student</a></li>
+        <li>
+          <a href="../students/registeredStudents.html">Registered Student</a>
+        </li>
+        <li><a href="../departments/addDepartment.html">New Department</a></li>
+        <li><a href="../departments/allDepartments.html">Departments</a></li>
+      </ul>
+    </header>
+    <div class="table-wrapper">
+      <table id="studentList">
+        <thead>
+          <tr>
+            <th>NO</th>
+            <th>DEPARTMENT</th>
+            <th>CATEGORY</th>
+            <th>AMOUNT</th>
+            <th>TO</th>
+            <th>DATE</th>
+          </tr>
+        </thead>
+        <tbody id="expenditureList"></tbody>
+      </table>
+    </div>
+
+    <script src="./expenditure.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#studentList").DataTable({
+          dom: "Bfrtip",
+          buttons: ["copyHtml5", "excelHtml5", "pdfHtml5", "csvHtml5"],
+        });
+      });
+    </script>
+  </body>
+</html>

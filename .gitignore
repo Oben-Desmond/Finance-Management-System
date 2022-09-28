@@ -1,0 +1,19 @@
+# eslint cache
+.eslintcache
+
+# node modules folder
+node_modules
+
+release-builds
+
+/release-builds
+
+/release-builds/electron-tutorial-app-linux-x64
+
+release-builds/
+
+/release-builds/
+
+.git
+
+.git/

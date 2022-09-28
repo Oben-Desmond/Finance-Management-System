@@ -1,0 +1,182 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: whitesmoke;
+}
+
+header {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    min-height: 80px;
+    padding: 10px;
+}
+
+header img {
+    width: 100px;
+    height: 90px;
+    margin-left: 30px;
+}
+
+header ul {
+    display: flex;
+    margin-top: 30px;
+}
+
+header ul li {
+    list-style: none;
+    margin-right: 20px;
+}
+
+header ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+}
+
+header ul li a:hover {
+    padding-bottom: 50px;
+    text-decoration: underline;
+}
+
+
+.dashboard-wrapper {
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    margin: 50px auto;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.income {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.income form {
+    width: 50%;
+}
+
+.income form input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    width: 300px;
+    margin: 3px;
+}
+
+.income form select {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    width: 300px;
+}
+
+.expenses form select {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    width: 300px;
+}
+
+.income form button {
+    border-radius: 10px;
+    border: none;
+    background-color: darkgreen;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin-left: 10px;
+}
+
+.income form button:hover {
+    cursor: pointer;
+}
+
+/* card styling */
+.incomeCard {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+}
+
+.rnxCostCard {
+    background-color: orange;
+    color: white;
+    font-weight: bold;
+}
+
+.rnxCostBalanceCard {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+}
+
+.numStudentsCard {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+}
+
+.numDeptCard {
+    background-color: purple;
+    color: white;
+    font-weight: bold;
+}
+
+
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active,
+.accordion:hover {
+    background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.spacer {
+    height: 30px;
+}

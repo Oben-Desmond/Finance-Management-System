@@ -1,0 +1,180 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: whitesmoke;
+}
+
+header {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    min-height: 80px;
+    padding: 10px;
+}
+
+header img {
+    width: 100px;
+    height: 90px;
+    margin-left: 30px;
+}
+
+header ul {
+    display: flex;
+    margin-top: 30px;
+}
+
+header ul li {
+    list-style: none;
+    margin-right: 20px;
+}
+
+header ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+}
+
+header ul li a:hover {
+    padding-bottom: 50px;
+    text-decoration: underline;
+}
+
+.download {
+    display: flex;
+    justify-content: space-between;
+}
+
+.download button {
+    border: none;
+    padding: 12px 22px;
+    border-radius: 5px;
+    background-color: #04AA6D;
+    color: white;
+    font-weight: bold;
+}
+
+.download button:hover {
+    cursor: pointer;
+}
+
+.download input {
+    padding: 10px;
+    font-size: 15px;
+    outline: none;
+    border-radius: 5px;
+    border-color: green;
+}
+
+.table-wrapper, .download {
+    padding: 10px;
+    width: 90%;
+    margin: 20px auto;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+#studentList {
+    width: 100%;
+}
+
+#studentList td, #studentList th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#studentList tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#studentList tr:hover {
+    background-color: #ddd;
+}
+
+#studentList th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
+#editBtn {
+    background-color: #04AA6D;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+#deleteBtn {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.deleteBtn {
+    background-color: red;
+    font-weight: bold;
+    border-radius: 3px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+}
+
+#editBtn, .deleteBtn, #deleteBtn:hover {
+    cursor: pointer;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close, .closeDelete {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus,
+.closeDelete:hover,
+.closeDelete:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
