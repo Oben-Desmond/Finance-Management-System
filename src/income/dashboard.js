@@ -1,20 +1,25 @@
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("Renderer > DOMContentLoaded");
 
+  function formatMoney(price) {
+    let dollarUSLocale = Intl.NumberFormat("en-US");
+    return dollarUSLocale.format(price);
+  }
+
   // // TOTAL FEE INCOME
   let totalFeeIncome = await window.api.totalFeeIncome();
   let feeIncomeData = document.getElementById("feeIncome");
-  feeIncomeData.innerHTML = totalFeeIncome + " FCFA";
+  feeIncomeData.innerHTML = formatMoney(totalFeeIncome) + " FCFA";
 
   // // TOTAL OTHER INCOME
   let totalOtherIncome = await window.api.otherIncomeTotal();
   let otherIncomeData = document.getElementById("otherIncome");
-  otherIncomeData.innerHTML = totalOtherIncome + " FCFA";
+  otherIncomeData.innerHTML = formatMoney(totalOtherIncome) + " FCFA";
 
   // // TOTAL INCOME
   let income = parseInt(totalFeeIncome) + parseInt(totalOtherIncome);
   let incomeData = document.getElementById("totalIncome");
-  incomeData.innerHTML = income + " FCFA";
+  incomeData.innerHTML = formatMoney(income) + " FCFA";
 
   // // TOTAL NUMBER OF STUDENTS
   let studentNumber = await window.api.getStudents();

@@ -99,6 +99,31 @@ header ul li a:hover {
     color: white;
 }
 
+#studentExpenseList {
+    width: 100%;
+}
+
+#studentExpenseList td, #studentExpenseList th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#studentExpenseList tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#studentExpenseList tr:hover {
+    background-color: #ddd;
+}
+
+#studentExpenseList th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
 #editBtn {
     background-color: #04AA6D;
     color: white;
@@ -177,4 +202,20 @@ header ul li a:hover {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* fee payment modal css */
+.amount-and-balance {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.feePaid span {
+    color: #04AA6D;
+}
+
+.feeBalance span {
+    color: red;
 }

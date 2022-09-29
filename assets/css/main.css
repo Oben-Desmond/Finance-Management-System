@@ -117,6 +117,33 @@ header ul li a:hover {
     cursor: pointer;
 }
 
+.levels form {
+    width: 50%;
+}
+
+.levels form input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    width: 300px;
+    margin: 3px;
+}
+
+.levels form button {
+    border-radius: 10px;
+    border: none;
+    background-color: darkgreen;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin-left: 10px;
+}
+
+.levels form button:hover {
+    cursor: pointer;
+}
+
 /* card styling */
 .incomeCard {
     background-color: green;

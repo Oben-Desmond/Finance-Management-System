@@ -66,6 +66,15 @@ header ul li a:hover {
     font-size: 18px;
 }
 
+.form-wrapper select {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    width: 100%;
+}
+
 .form-wrapper button {
     margin-top: 15px;
     padding: 10px 20px;
