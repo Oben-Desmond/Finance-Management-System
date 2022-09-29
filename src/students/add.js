@@ -1,6 +1,28 @@
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("Renderer > DOMContentLoaded");
-  console.log(window);
+
+  // LISTING DEPARTMENTS
+  let departments = await window.api.getDepartments();
+  let tableData = document.getElementById("departments");
+  let departmentString = departments
+    .map((dept) => {
+      return `<option id="${dept.Did}" value="${dept.dept_name}">${dept.dept_name}</option>`;
+    })
+    .join("<br/>");
+
+  tableData.innerHTML = departmentString;
+
+  // LISTING LEVELS
+  let levels = await window.api.getLevels();
+  let levelData = document.getElementById("studentLevel");
+  let levelString = levels
+    .map((data) => {
+      return `<option id="${data.Lid}" value="${data.level_name}">${data.level_name}</option>`;
+    })
+    .join("<br/>");
+
+  levelData.innerHTML = levelString;
+
   const form = document.querySelector("form");
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -9,9 +31,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       registration_number: document.querySelector("#registrationNumber").value,
       student_name: document.querySelector("#studentName").value,
       student_level: document.querySelector("#studentLevel").value,
-      section: document.querySelector("#section").value,
+      section: document.querySelector("#departments").value,
       amount: document.querySelector("#amount").value,
-      balance: document.querySelector("#balance").value,
     };
 
     // ADDING A STUDENT
@@ -21,8 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       (student_name = student.student_name),
       (student_level = student.student_level),
       (student_section = student.section),
-      (amount = student.amount),
-      (balance = student.balance)
+      (amount = student.amount)
     );
   });
 });

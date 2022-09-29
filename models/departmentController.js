@@ -40,38 +40,29 @@ class Controller {
     return await process;
   }
 
-  addDepartment(department_name, description, running_cost, balance) {
-    const sql = `INSERT INTO departments (department_name, description, running_cost, balance ) VALUES (?,?,?,?)`;
+  addDepartment(dept_name, dept_desc, fee_amount) {
+    const sql = `INSERT INTO departments (dept_name, dept_desc, fee_amount) VALUES (?,?,?)`;
 
-    db.run(
-      sql,
-      [department_name, description, running_cost, balance],
-      (err) => {
-        if (err) {
-          throw err;
-        }
-        alert("Department Added Successfully");
+    db.run(sql, [dept_name, dept_desc, fee_amount], (err) => {
+      if (err) {
+        throw err;
       }
-    );
+      alert("Department Added Successfully");
+    });
   }
 
-  updateDepartment(id, department_name, description, running_cost, balance) {
+  updateDepartment(id, dept_name, dept_desc, fee_amount) {
     const sql = `UPDATE departments SET 
-    department_name = ?,
-    description = ?,
-    running_cost = ?,
-    balance = ? WHERE Did = ${id}`;
+    dept_name = ?,
+    dept_desc = ?,
+    fee_amount = ? WHERE Did = ${id}`;
 
-    db.run(
-      sql,
-      [department_name, description, running_cost, balance],
-      (err) => {
-        if (err) {
-          throw err;
-        }
-        alert("Department Updated Successfully");
+    db.run(sql, [dept_name, dept_desc, fee_amount], (err) => {
+      if (err) {
+        throw err;
       }
-    );
+      alert("Department Updated Successfully");
+    });
   }
 
   deleteDepartment(id) {

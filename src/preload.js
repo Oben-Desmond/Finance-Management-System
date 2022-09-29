@@ -1,13 +1,19 @@
 const Controller = require("../models/controller");
 const Department = require("../models/departmentController");
 const Expenditure = require("../models/expenditureController");
-const Expense = require("../models/expenseController");
 const Dashboard = require("../models/dashboardController");
+const Levels = require("../models/levelController");
+const Fees = require("../models/feeController");
+const OtherIncome = require("../models/otherIncomeController");
+const Expense = require("../models/expenseController");
 
 const departmetCtl = new Department();
 const studentCtl = new Controller();
 const expenditureCtl = new Expenditure();
 const dashboardCtl = new Dashboard();
+const levelCtl = new Levels();
+const feeCtl = new Fees();
+const otherIncomeCtl = new OtherIncome();
 const expenseCtrl = new Expense();
 
 const { contextBridge, ipcRenderer } = require("electron");
@@ -18,26 +24,23 @@ module.exports = totalIncome = () => {
 
   return income;
 };
-
-
-
 const tlIncome = totalIncome();
 
-// GET RUNNING COST
-module.exports = runningCost = () => {
-  const Rcost = dashboardCtl.runningCost();
+// GET TOTAL FEE INCOME
+module.exports = totalFeeIncome = () => {
+  const income = dashboardCtl.totalFeeIncome();
 
-  return Rcost;
+  return income;
 };
-const runxcost = runningCost();
+const tlFeeIncome = totalFeeIncome();
 
-// GET RUNNING COST BALANCE
-module.exports = runningCostBalance = () => {
-  const RcostBalance = dashboardCtl.runningCostBalance();
+// OTHER INCOME TOTAL
+module.exports = otherIncomeTotal = () => {
+  const income = dashboardCtl.otherIncomeTotal();
 
-  return RcostBalance;
+  return income;
 };
-const runxcostBalance = runningCostBalance();
+const otherIncome = otherIncomeTotal();
 
 // ####################### STUDENT FUNCTIONS ###################################################
 
@@ -65,8 +68,7 @@ module.exports = addStudent = (
   studentName,
   studentLevel,
   section,
-  amount,
-  balance
+  amount
 ) => {
   const addStud = studentCtl.addStudent(
     studentNumber,
@@ -74,8 +76,7 @@ module.exports = addStudent = (
     studentName,
     studentLevel,
     section,
-    amount,
-    balance
+    amount
   );
 
   return addStud;
@@ -88,9 +89,7 @@ module.exports = updateStudent = (
   registrationNumber,
   studentName,
   studentLevel,
-  section,
-  amount,
-  balance
+  section
 ) => {
   const updateStud = studentCtl.updateStudent(
     id,
@@ -98,9 +97,7 @@ module.exports = updateStudent = (
     registrationNumber,
     studentName,
     studentLevel,
-    section,
-    amount,
-    balance
+    section
   );
 
   return updateStud;
@@ -111,57 +108,6 @@ module.exports = deleteStudent = (id) => {
   const deletedStudent = studentCtl.deleteStudent(id);
 
   return deletedStudent;
-};
-
-
-module.exports = totalExpenses = () => {
-  const expenses = studentCtl.totalExpenses();
-
-  return expenses;
-};
-
-
-module.exports = totalIncomeExpenses = () => {
-  const expenses = expenseCtrl.totalIncomeExpenses();
-
-  return expenses;
-};
-
-module.exports = addIncomeExpense = (income) => {
-  expenseCtrl.addIncomeExpense(income);
-
-};
-
-
-module.exports = addBudgetHeadIncome = (budget) => {
-  expenseCtrl.addBudgetHeadIncome(budget);
-
-};
-
-module.exports = getBudgetData = () => {
-  const bh = expenseCtrl.getBudgetData();
-
-  return bh;
-}
-
-module.exports = getBudgetHeadById = (id) => {
-  return expenseCtrl.getBudgetHeadById(id)
-}
-
-module.exports = updateBudgetHead = (id,
-  name,
-  description,
-  amount) => {
-  return expenseCtrl.updateBudgetHead(id,
-    name,
-    description,
-    amount)
-}
-
-module.exports = deleteBudgetHead = (id) => {
-  return expenseCtrl.deleteBudgetHead(id);
-
-
 };
 
 // ####################### DEPARTMENT FUNCTIONS ###################################################
@@ -187,14 +133,12 @@ module.exports = getDepartmentById = (id) => {
 module.exports = addDepartment = (
   departmentName,
   departmentDescription,
-  runningCost,
-  balance
+  fee_amount
 ) => {
   const addDept = departmetCtl.addDepartment(
     departmentName,
     departmentDescription,
-    runningCost,
-    balance
+    fee_amount
   );
 
   return addDept;
@@ -205,15 +149,13 @@ module.exports = updateDepartment = (
   id,
   departmentName,
   departmentDescription,
-  runningCost,
-  balance
+  fee_amount
 ) => {
   const updateDept = departmetCtl.updateDepartment(
     id,
     departmentName,
     departmentDescription,
-    runningCost,
-    balance
+    fee_amount
   );
 
   return updateDept;
@@ -228,30 +170,106 @@ module.exports = deleteDepartment = (id) => {
 
 // ####################### EXPENDITURE FUNCTIONS ###################################################
 
-// GET ALL EXPENDITURES
-module.exports = allExpenditures = () => {
-  const expenditures = expenditureCtl.allExpenditures();
+module.exports = totalExpenses = () => {
+  const expenses = studentCtl.totalExpenses();
 
-  return expenditures;
+  return expenses;
 };
-const expenditures = allExpenditures();
 
-// ADD EXPENDITURE
-module.exports = addExpenditure = (
-  departmentName,
-  category,
-  amount,
-  issuedTo
+module.exports = totalIncomeExpenses = () => {
+  const expenses = expenseCtrl.totalIncomeExpenses();
+
+  return expenses;
+};
+
+module.exports = addIncomeExpense = (income) => {
+  expenseCtrl.addIncomeExpense(income);
+};
+
+module.exports = addBudgetHeadIncome = (budget) => {
+  expenseCtrl.addBudgetHeadIncome(budget);
+};
+
+module.exports = getBudgetData = () => {
+  const bh = expenseCtrl.getBudgetData();
+
+  return bh;
+};
+
+module.exports = getBudgetHeadById = (id) => {
+  return expenseCtrl.getBudgetHeadById(id);
+};
+
+module.exports = updateBudgetHead = (id, name, description, amount) => {
+  return expenseCtrl.updateBudgetHead(id, name, description, amount);
+};
+
+module.exports = deleteBudgetHead = (id) => {
+  return expenseCtrl.deleteBudgetHead(id);
+};
+
+// ############################ LEVEL FUNCTIONS ###########################################################
+
+// ADD LEVEL
+module.exports = addLevel = (level_name) => {
+  const addLevel = levelCtl.addLevel(level_name);
+
+  return addLevel;
+};
+
+// GET ALL LEVELS
+module.exports = allLevels = () => {
+  const levels = levelCtl.allLevels();
+
+  return levels;
+};
+const levels = allLevels();
+
+// ############################ FEE TRANSACTIONS FUNCTIONS ###########################################################
+
+// ADD FEE
+module.exports = payFee = (
+  id,
+  student_number,
+  reg_number,
+  student_name,
+  amount
 ) => {
-  const addExpns = expenditureCtl.addExpenditure(
-    departmentName,
-    category,
-    amount,
-    issuedTo
+  const payFee = feeCtl.payFee(
+    id,
+    student_number,
+    reg_number,
+    student_name,
+    amount
   );
 
-  return addExpns;
+  return payFee;
 };
+
+// GET ALL TRANSACTIONS
+module.exports = allFeeTransactions = () => {
+  const transations = feeCtl.allFeeTransactions();
+
+  return transations;
+};
+const feeTransations = allFeeTransactions();
+
+// ############################ OTHER INCOME FUNCTIONS ###########################################################
+
+// ADD INCOME
+module.exports = addIncome = (source, sourcenName, amount) => {
+  const addIncome = otherIncomeCtl.addIncome(source, sourcenName, amount);
+
+  return addIncome;
+};
+
+// GET ALL INCOMES
+module.exports = allIncomes = () => {
+  const incomes = otherIncomeCtl.allIncomes();
+
+  return incomes;
+};
+const other_incomes = allIncomes();
 
 // ####################### CONTEXT BRIDGE ###################################################
 
@@ -261,14 +279,14 @@ contextBridge.exposeInMainWorld("api", {
     return tlIncome;
   },
 
-
-  // total running cost ################
-  runningCost: function () {
-    return runxcost;
+  // total fee income ################
+  totalFeeIncome: function () {
+    return tlFeeIncome;
   },
-  // total running cost balance ################
-  runningCostBalance: function () {
-    return runxcostBalance;
+
+  // total other income ################
+  otherIncomeTotal: function () {
+    return otherIncome;
   },
 
   // Students ##########################
@@ -290,22 +308,36 @@ contextBridge.exposeInMainWorld("api", {
   getDepartmentById: function () {
     return returnedDepartment;
   },
-  totalIncomeExpenses: totalIncomeExpenses,
-  addIncomeExpense: addIncomeExpense,
-  addBudgetHeadIncome: addBudgetHeadIncome,
-  getBudgetData: getBudgetData,
   findDepartmentById: getDepartmentById,
   addDepartment: addDepartment,
   updateDepartment: updateDepartment,
   deleteDepartment: deleteDepartment,
+
+  // LEVELS #########################
+  getLevels: function () {
+    return levels;
+  },
+  addLevel: addLevel,
+
+  // FEE TRANSACTIONS #########################
+  getFeeTransactions: function () {
+    return feeTransations;
+  },
+  payFee: payFee,
+
+  // OTHER INCOMES #########################
+  getOtherIncomes: function () {
+    return other_incomes;
+  },
+  addIncome: addIncome,
+
+  // EXPENSES ##############################
+  totalIncomeExpenses: totalIncomeExpenses,
+  addIncomeExpense: addIncomeExpense,
+  addBudgetHeadIncome: addBudgetHeadIncome,
   totalExpenses: totalExpenses,
+  getBudgetData: getBudgetData,
   getBudgetHeadById: getBudgetHeadById,
   updateBudgetHead: updateBudgetHead,
   deleteBudgetHead: deleteBudgetHead,
-
-  // Expenditure ########################
-  getExpenditures: function () {
-    return expenditures;
-  },
-  addExpenditure: addExpenditure,
 });

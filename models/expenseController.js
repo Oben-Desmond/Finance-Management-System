@@ -1,7 +1,14 @@
 var dbmgr = require("./dbmgr");
 var db = dbmgr.db;
-const income = { id: 0, timestamp: '', description: '', person: "", amount: 0, name: "" };
-const budget = { description: "", name: "", amount: "" }
+const income = {
+    id: 0,
+    timestamp: "",
+    description: "",
+    person: "",
+    amount: 0,
+    name: "",
+};
+const budget = { description: "", name: "", amount: "" };
 
 class Controller {
     totalIncomeExpenses() {
@@ -16,36 +23,32 @@ class Controller {
                 }
 
                 res = rows.map((row, index) => {
-                    return ({
+                    return {
                         amount: row.amount,
                         description: row.description,
                         id: row.id,
                         person: row.person,
                         timestamp: row.timestamp,
-                        name: row.name
-                    })
+                        name: row.name,
+                        budget_head: row.budget_head
+                    };
                 });
-                resolve(res)
-
+                resolve(res);
             });
-        })
-
-
+        });
     }
 
     addIncomeExpense(inputIncome = income) {
+        const { id, description, name, person, amount, budget_head } = inputIncome;
 
-        const { id, description, name, person, amount } = inputIncome;
-
-        const sql = `INSERT INTO expenses ( description, name, person, amount)
-        VALUES (?,?,?,?)`;
+        const sql = `INSERT INTO expenses ( description, name, person, amount, budget_head)
+        VALUES (?,?,?,?,?)`;
         const res = [];
 
-        db.run(sql, [description, name, person, amount], (err, rows) => {
+        db.run(sql, [description, name, person, amount, budget_head], (err, rows) => {
             if (err) {
                 throw err;
             }
-
         });
 
         return res;
@@ -61,11 +64,9 @@ class Controller {
                     rej(err);
                 }
 
-                res("successfull")
-
+                res("successfull");
             });
-        })
-
+        });
     }
 
     getBudgetData() {
@@ -79,17 +80,16 @@ class Controller {
                 }
 
                 res = rows.map((row, index) => {
-                    return ({
+                    return {
                         amount: row.amount,
                         description: row.description,
                         id: row.id,
                         name: row.name,
-                    })
+                    };
                 });
-                resolve(res)
-
+                resolve(res);
             });
-        })
+        });
     }
     getBudgetHeadById(id) {
         const sql = `SELECT * FROM budget_head WHERE id=${id}`;
@@ -102,49 +102,34 @@ class Controller {
                 }
 
                 res = rows.map((row, index) => {
-                    return ({
+                    return {
                         amount: row.amount,
                         description: row.description,
                         id: row.id,
                         name: row.name,
-                    })
+                    };
                 });
-                resolve(res)
-
+                resolve(res);
             });
-        })
+        });
     }
 
-    updateBudgetHead(
-        id,
-        name,
-        description,
-        amount
-
-    ) {
+    updateBudgetHead(id, name, description, amount) {
         const sql = `UPDATE budget_head SET 
         name = ?,
         description = ?,
         amount = ?
         WHERE id = ${id}`;
 
-        return (new Promise((resolve, reject) => {
-            db.run(
-                sql,
-                [
-                    name,
-                    description,
-                    amount,
-                ],
-                (err) => {
-                    if (err) {
-                        alert(id)
-                        reject(err);
-                    }
-                    resolve("Student Updated Successfully");
+        return new Promise((resolve, reject) => {
+            db.run(sql, [name, description, amount], (err) => {
+                if (err) {
+                    alert(id);
+                    reject(err);
                 }
-            );
-        }))
+                resolve("Student Updated Successfully");
+            });
+        });
     }
 
     deleteBudgetHead(id) {
@@ -156,7 +141,6 @@ class Controller {
             }
         });
     }
-
 }
 
 module.exports = Controller;

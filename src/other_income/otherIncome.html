@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
+    <title>OTHER INCOME</title>
     <link rel="stylesheet" href="../../assets/css/add.css" />
-    <title>ADD DEPARTMENT</title>
   </head>
   <body>
     <header>
@@ -9,16 +9,11 @@
       <ul>
         <li><a href="../index.html">Home</a></li>
         <li><a href="../income/dashboard.html">Dashboard</a></li>
-        <li><a href="../students/add.html">New Student</a></li>
-        <li>
-          <a href="../students/registeredStudents.html">Students</a>
-        </li>
+        <li><a href="./registeredStudents.html">Students</a></li>
+        <li><a href="../departments/addDepartment.html">New Department</a></li>
         <li><a href="../departments/allDepartments.html">Departments</a></li>
         <li>
-          <a href="../other_income/otherIncome.html">Add Income</a>
-        </li>
-        <li>
-          <a href="../other_income/allIncomes.html">Other Income</a>
+          <a href="./allIncome.js">Other Income</a>
         </li>
         <li>
           <a href="../feeTrasactions/feeTransactions.html">Fee Transactions</a>
@@ -28,33 +23,23 @@
     <div class="form-wrapper">
       <form>
         <div class="input-div">
-          <input
-            required
-            type="text"
-            id="departmentName"
-            placeholder="Department name"
-          />
+          <input required type="text" id="source" placeholder="Income Source" />
         </div>
         <div class="input-div">
           <input
             required
             type="text"
-            id="departmentDescription"
-            placeholder="Brief Description"
+            id="sourceName"
+            placeholder="Name of Source"
           />
         </div>
         <div class="input-div">
-          <input
-            required
-            type="number"
-            id="feeAmount"
-            placeholder="Fee Amount"
-          />
+          <input required type="number" id="amount" placeholder="Amount" />
         </div>
-        <button type="submit">Add Department</button>
+        <button type="submit">Add Income</button>
       </form>
     </div>
 
-    <script src="./addDepartment.js"></script>
+    <script src="./otherIncome.js"></script>
   </body>
 </html>

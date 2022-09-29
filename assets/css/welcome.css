@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.welcome {
+    width: 80%;
+    margin: auto;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    border-radius: 10px;
+    min-height: 500px;
+}
+
+.welcome h1 {
+    text-align: center;
+    padding-top: 100px;
+    font-weight: bolder;
+    font-size: 50px;
+}
+
+.btns {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.btns a {
+    text-decoration: none;
+    color: white;
+    background-color: #04AA6D;
+    padding: 12px 15px;
+    border-radius: 5px;
+    margin: 10px;
+    font-weight: bold;
+}
+
+.btns a:hover {
+    background-color: #fff;
+    color: #04AA6D;
+    border: 1px solid #04AA6D;
+}

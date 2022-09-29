@@ -58,8 +58,7 @@ class Controller {
     student_name,
     student_level,
     student_section,
-    amount,
-    balance
+    amount
   ) {
     const sql = `INSERT INTO students 
     (
@@ -68,27 +67,56 @@ class Controller {
       student_name,
       student_level,
       student_section,
-      amount,
-      balance ) VALUES (?,?,?,?,?,?,?)`;
+      amount) VALUES (?,?,?,?,?,?)`;
+    let deptFee = 0;
+    const getFee = `SELECT fee_amount FROM departments WHERE dept_name LIKE '%${student_section}%'`;
+    const recordFeePayment = `INSERT INTO feeTransactions (student_number, reg_number, student_name, amount) 
+                  VALUES (?,?,?,?)`;
 
-    db.run(
-      sql,
-      [
-        student_number,
-        registration_number,
-        student_name,
-        student_level,
-        student_section,
-        amount,
-        balance,
-      ],
-      (err) => {
-        if (err) {
-          throw err;
+    db.serialize(() => {
+      db.run(
+        sql,
+        [
+          student_number,
+          registration_number,
+          student_name,
+          student_level,
+          student_section,
+          amount,
+        ],
+        (err) => {
+          if (err) {
+            throw err;
+          }
         }
-        alert("Student Added Successfully");
-      }
-    );
+      )
+        .get(getFee, (err, row) => {
+          if (err) {
+            throw err;
+          }
+          deptFee = row.fee_amount;
+
+          const updateBalance = `UPDATE students SET balance = ${
+            deptFee - amount
+          } WHERE student_number = ${student_number}`;
+
+          db.run(updateBalance, (err) => {
+            if (err) {
+              throw err;
+            }
+          });
+        })
+        .run(
+          recordFeePayment,
+          [student_number, registration_number, student_name, amount],
+          (err) => {
+            if (err) {
+              throw err;
+            }
+            alert("Student Added Successfully");
+          }
+        );
+    });
   }
 
   updateStudent(
@@ -97,18 +125,14 @@ class Controller {
     registration_number,
     student_name,
     student_level,
-    student_section,
-    amount,
-    balance
+    student_section
   ) {
     const sql = `UPDATE students SET 
     student_number = ?,
     registration_number = ?,
     student_name = ?,
     student_level = ?,
-    student_section = ?,
-    amount = ?,
-    balance = ? WHERE id = ${id}`;
+    student_section = ? WHERE id = ${id}`;
 
     db.run(
       sql,
@@ -118,8 +142,6 @@ class Controller {
         student_name,
         student_level,
         student_section,
-        amount,
-        balance,
       ],
       (err) => {
         if (err) {

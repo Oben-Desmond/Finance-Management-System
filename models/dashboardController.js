@@ -21,8 +21,8 @@ class Controller {
     return res;
   }
 
-  runningCost() {
-    const sql = "SELECT running_cost FROM departments";
+  totalFeeIncome() {
+    const sql = "SELECT amount FROM students";
     const res = [];
     let sum = 0;
 
@@ -32,7 +32,7 @@ class Controller {
       }
 
       rows.forEach((row) => {
-        sum = sum + row.running_cost;
+        sum = sum + row.amount;
       });
       res.push(sum);
     });
@@ -40,8 +40,8 @@ class Controller {
     return res;
   }
 
-  runningCostBalance() {
-    const sql = "SELECT balance FROM departments";
+  otherIncomeTotal() {
+    const sql = "SELECT amount FROM other_incomes";
     const res = [];
     let sum = 0;
 
@@ -51,7 +51,7 @@ class Controller {
       }
 
       rows.forEach((row) => {
-        sum = sum + row.balance;
+        sum = sum + row.amount;
       });
       res.push(sum);
     });

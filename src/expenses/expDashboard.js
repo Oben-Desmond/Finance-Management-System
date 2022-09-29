@@ -4,21 +4,19 @@ var i;
 for (i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function () {
         /* Toggle between adding and removing the "active" class,
-        to highlight the button that controls the panel */
+            to highlight the button that controls the panel */
         this.classList.toggle("active");
-
 
         /* Toggle between hiding and showing the active panel */
         var panel = this.nextElementSibling;
         if (panel.style.display === "block") {
             panel.style.height = "0px";
             setTimeout(() => {
-                panel.style.display = 'none'
+                panel.style.display = "none";
             }, 500);
         } else {
-            panel.style.display = 'block'
+            panel.style.display = "block";
             panel.style.height = "auto";
-
         }
         // for (j = 0; j < acc.length; j++) {
         //     if (j != i) {
@@ -30,72 +28,67 @@ for (i = 0; i < acc.length; i++) {
     });
 }
 
-document.getElementById('budget-head-form').addEventListener('submit', submitBudgetHead)
-
+document
+    .getElementById("budget-head-form")
+    .addEventListener("submit", submitBudgetHead);
 
 function submitBudgetHead(e) {
-
     e.preventDefault();
 
-    const name = document.getElementById("create-bh-name")
-    const description = document.getElementById("create-bh-desc")
-    const amount = document.getElementById("create-bh-amount")
-    const error = document.getElementById("create-bh-expense-error")
+    const name = document.getElementById("create-bh-name");
+    const description = document.getElementById("create-bh-desc");
+    const amount = document.getElementById("create-bh-amount");
+    const error = document.getElementById("create-bh-expense-error");
 
-
-    error.innerHTML = ""
-
+    error.innerHTML = "";
 
     try {
-
-        addBudgetHead({ name: name.value, description: description.value, amount: amount.value })
-        updateBudgetHeadView()
+        addBudgetHead({
+            name: name.value,
+            description: description.value,
+            amount: amount.value,
+        });
+        updateBudgetHeadView();
 
         name.value = "";
         description.value = "";
-        amount.value = ""
-        error.innerHTML = ""
-
+        amount.value = "";
+        error.innerHTML = "";
     } catch (err) {
-        error.innerHTML = "" + err
+        error.innerHTML = "" + err;
     }
 }
 
-
-document.getElementById('expense-form').addEventListener('submit', submitExpense)
-
+document
+    .getElementById("expense-form")
+    .addEventListener("submit", submitExpense);
 
 async function submitExpense(e) {
-
     e.preventDefault();
 
-    const name = document.getElementById("select-bh")
-    const description = document.getElementById("bh-description")
-    const amount = document.getElementById("bh-amount")
-    const person = document.getElementById("bh-person")
-    const error = document.getElementById("bh-expense-error")
+    const name = document.getElementById("select-bh");
+    const description = document.getElementById("bh-description");
+    const amount = document.getElementById("bh-amount");
+    const person = document.getElementById("bh-person");
+    const error = document.getElementById("bh-expense-error");
 
-
-
-
-    error.innerHTML = ""
+    error.innerHTML = "";
 
     let currentBH = undefined;
 
     if (budgetHeadState) {
-        currentBH = budgetHeadState.find((bh) => bh.id == name.value)
+        currentBH = budgetHeadState.find((bh) => bh.id == name.value);
         if (currentBH) {
-            if (currentBH.amount < (+amount.value)) {
-                error.innerHTML = "Maximum allocatable amount is " + currentBH.amount
+            if (currentBH.amount < +amount.value) {
+                error.innerHTML = "Maximum allocatable amount is " + currentBH.amount;
                 return;
             }
-
         } else {
-            error.innerHTML = "unable to validate selected Budjet head"
+            error.innerHTML = "unable to validate selected Budjet head";
             return;
         }
     } else {
-        error.innerHTML = "unable to validate selected Budjet head"
+        error.innerHTML = "unable to validate selected Budjet head";
         return;
     }
 
@@ -104,23 +97,26 @@ async function submitExpense(e) {
             currentBH.id,
             currentBH.name,
             currentBH.description,
-            currentBH.amount - (+amount.value)
+            currentBH.amount - +amount.value,
         );
-        addExpense({ name: name.value, description: description.value, amount: amount.value, person: person.value })
-        updateExpensesView()
-        updateBudgetHeadView()
+        addExpense({
+            name: currentBH.name,
+            description: description.value,
+            amount: amount.value,
+            person: person.value,
+            budget_head: currentBH.id
+        });
+        updateExpensesView();
+        updateBudgetHeadView();
         name.value = "";
         description.value = "";
         person.value = "";
-        amount.value = ""
-        error.innerHTML = ""
-
-
+        amount.value = "";
+        error.innerHTML = "";
     } catch (err) {
-        error.innerHTML = "" + err
+        error.innerHTML = "" + err;
     }
 }
-
 
 // ############# MODAL FUNCTION ###################################################################
 const modalFunction = () => {
@@ -153,9 +149,7 @@ const deleteModalFunction = () => {
 
 // ############# EDIT FUNCTION ###################################################################
 editBudgetHead = async (id) => {
-
     budget_heads = await window.api.getBudgetHeadById(id);
-
 
     budget_heads.map((data) => {
         document.getElementById("edit-bh-name").value = data.name;
@@ -174,7 +168,6 @@ editBudgetHead = async (id) => {
             amount: document.querySelector("#edit-bh-amount").value,
         };
 
-
         // UPDATING A DEPARTMENT
         let new_budget_head = await window.api.updateBudgetHead(
             budget_head.id,
@@ -190,23 +183,19 @@ editBudgetHead = async (id) => {
         document.getElementById("edit-bh-name").value = "";
         document.getElementById("edit-bh-desc").value = "";
         document.getElementById("edit-bh-amount").value = "";
-        updateBudgetHeadView()
-
-
-
+        updateBudgetHeadView();
     });
 };
 
 // ############# DELETE FUNCTION ###################################################################
 deleteHandler = async function (id) {
     await window.api.deleteBudgetHead(id);
-    updateBudgetHeadView()
-
+    updateBudgetHeadView();
 };
 
 deleteBudgetHead = function (id) {
     if (!id) {
-        alert(id)
+        alert(id);
         return;
     }
     deleteModalFunction();
@@ -217,4 +206,3 @@ deleteBudgetHead = function (id) {
     </div>`;
     question.innerHTML = deleteBtn;
 };
-

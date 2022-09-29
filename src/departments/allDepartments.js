@@ -6,12 +6,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   let tableData = document.getElementById("departments");
   let departmentString = departments
     .map((dept) => {
-      return `<tr>
+      return `<tr class="accordion">
         <td>${dept.Did}</td>
-        <td>${dept.department_name}</td>
-        <td>${dept.description}</td>
-        <td>${dept.running_cost}</td>
-        <td>${dept.balance}</td>
+        <td>${dept.dept_name}</td>
+        <td>${dept.dept_desc}</td>
+        <td>${dept.fee_amount}</td>
         <td>
           <button onclick="editDepartment(${dept.Did})" id="editBtn">Edit</button>
           <button onclick="deleteDepartment(${dept.Did})" id="deleteBtn">Delete</button>
@@ -57,9 +56,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     let department = await window.api.getDepartmentById();
 
     department.map((data) => {
-      document.getElementById("departmentName").value = data.department_name;
-      document.getElementById("departmentDescription").value = data.description;
-      document.getElementById("runningCost").value = data.running_cost;
+      document.getElementById("departmentName").value = data.dept_name;
+      document.getElementById("departmentDescription").value = data.dept_desc;
+      document.getElementById("feeAmount").value = data.fee_amount;
     });
     modalFunction();
 
@@ -70,8 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         id,
         department_name: document.querySelector("#departmentName").value,
         description: document.querySelector("#departmentDescription").value,
-        running_cost: document.querySelector("#runningCost").value,
-        balance: document.querySelector("#runningCost").value,
+        fee_amount: document.querySelector("#feeAmount").value,
       };
 
       // UPDATING A DEPARTMENT
@@ -79,15 +77,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         id,
         (department_name = department.department_name),
         (description = department.description),
-        (running_cost = department.running_cost),
-        (balance = department.balance)
+        (fee_amount = department.fee_amount)
       );
 
-      department.map((data) => {
-        document.getElementById("departmentName").value = "";
-        document.getElementById("departmentDescription").value = "";
-        document.getElementById("runningCost").value = "";
-      });
+      document.getElementById("departmentName").value = "";
+      document.getElementById("departmentDescription").value = "";
+      document.getElementById("feeAmount").value = "";
     });
   };
 
@@ -95,7 +90,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   deleteHandler = async function (id) {
     await window.api.deleteDepartment(id);
   };
-
 
   deleteDepartment = function (id) {
     deleteModalFunction();

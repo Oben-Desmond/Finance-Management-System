@@ -1,17 +1,13 @@
-
-
 // const expense_error = document.getElementById("expense_error");
-let budgetHeadState = []
-
-
-
+let budgetHeadState = [];
+let expensesState = []
 async function addExpense(expense) {
     // expense_error.innerHTML = ""
     try {
-        await window.api.addIncomeExpense(expense)
+        await window.api.addIncomeExpense(expense);
     } catch (err) {
         // expense_error.innerHTML = err + "";
-        console.log(err)
+        console.log(err);
     }
 }
 
@@ -19,29 +15,58 @@ async function updateExpensesView() {
     let expenses = await window.api.totalIncomeExpenses();
     let expensesEl = document.getElementById("total-expenses");
     expensesEl.innerHTML = expenses.length;
+    expensesState = expenses;
     let tableEl = document.getElementById("expenses-table");
     let tableString = expenses
         .map((expense, index) => {
             return `<tr>
           <td>${index + 1}</td>
           <td>${expense.name}</td>
+          <td>${expense.person}</td>
           <td>${expense.amount}</td>
           <td>${expense.description}</td>
-          
+          <td>${expense.person}</td>
           </tr>`;
         })
         .join("<br/>");
 
     tableEl.innerHTML = tableString;
+    getBudgetStats();
+}
+
+
+
+async function getBudgetStats() {
+    let bh_total = 0;
+    let bh_balance_total = 0;
+    let bh_heads_expenses = [];
+
+    budgetHeadState.map((bh) => {
+        if (bh.amount) {
+            bh_balance_total += +(bh.amount + '')
+        }
+        const bh_expense_match = expensesState.filter((exp) => exp.budget_head == bh.id);
+        bh_heads_expenses = [...bh_heads_expenses, ...bh_expense_match];
+    })
+
+    bh_heads_expenses.map((bh) => {
+        if (bh.amount) {
+            bh_total += +(bh.amount + '')
+        }
+    })
+
+
+    document.getElementById("assigned-budget").innerHTML = bh_balance_total;
+    document.getElementById("balance-budget").innerHTML = bh_total;
 
 
 }
 
 
+
 async function addBudgetHead(budget) {
     // expense_error.innerHTML = ""
-    await window.api.addBudgetHeadIncome(budget)
-
+    await window.api.addBudgetHeadIncome(budget);
 }
 
 async function updateBudgetHeadView() {
@@ -76,10 +101,8 @@ async function updateBudgetHeadView() {
     `;
         })
         .join("<br/>");
+    getBudgetStats();
 }
-
-
-
 
 document.addEventListener("DOMContentLoaded", async () => {
     console.log("Renderer > DOMContentLoaded");
@@ -92,11 +115,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // // TOTAL INCOME
 
-    updateExpensesView()
-    updateBudgetHeadView()
-
-
-
+    updateExpensesView();
+    updateBudgetHeadView();
 
     // // // TOTAL RUNNING COST
     // let Rcost = await window.api.runningCost();

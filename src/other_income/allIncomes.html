@@ -1,6 +1,7 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="../../assets/css/registeredStudents.css" />
+    <link rel="stylesheet" href="../../assets/css/add.css" />
     <script src="../jquery.js"></script>
     <script
       type="text/javascript"
@@ -37,19 +38,26 @@
       type="text/javascript"
       src="../../DataTables//pdfmake-0.1.36/vfs_fonts.js"
     ></script>
-    <title>EXPENSES</title>
+    <title>OTHER INCOME</title>
   </head>
   <body>
     <header>
       <img src="../../assets//images/rhibms.jpeg" alt="" />
       <ul>
-        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../income/dashboard.html">Dashboard</a></li>
         <li><a href="../students/add.html">New Student</a></li>
         <li>
-          <a href="../students/registeredStudents.html">Registered Student</a>
+          <a href="../students/registeredStudents.html">Students</a>
         </li>
-        <li><a href="../departments/addDepartment.html">New Department</a></li>
+        <li><a href="../addDepartment.html">New Departments</a></li>
         <li><a href="../departments/allDepartments.html">Departments</a></li>
+        <li>
+          <a href="./otherIncome.html">Add Income</a>
+        </li>
+        <li>
+          <a href="../feeTrasactions/feeTransactions.html">Fee Transactions</a>
+        </li>
       </ul>
     </header>
     <div class="table-wrapper">
@@ -57,18 +65,17 @@
         <thead>
           <tr>
             <th>NO</th>
-            <th>DEPARTMENT</th>
-            <th>CATEGORY</th>
+            <th>SOURCE</th>
+            <th>SOURCE NAME</th>
             <th>AMOUNT</th>
-            <th>TO</th>
             <th>DATE</th>
           </tr>
         </thead>
-        <tbody id="expenditureList"></tbody>
+        <tbody id="allincomes"></tbody>
       </table>
     </div>
 
-    <script src="./expenditure.js"></script>
+    <script src="./allIncome.js"></script>
     <script>
       $(document).ready(function () {
         $("#studentList").DataTable({
