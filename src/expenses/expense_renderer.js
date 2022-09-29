@@ -25,7 +25,6 @@ async function updateExpensesView() {
           <td>${expense.person}</td>
           <td>${expense.amount}</td>
           <td>${expense.description}</td>
-          <td>${expense.person}</td>
           </tr>`;
         })
         .join("<br/>");
