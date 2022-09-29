@@ -55,10 +55,18 @@ async function getBudgetStats() {
     })
 
 
-    document.getElementById("assigned-budget").innerHTML = bh_balance_total;
-    document.getElementById("balance-budget").innerHTML = bh_total;
+
+    document.getElementById("assigned-budget").innerHTML = formatMoney(bh_balance_total);
+    document.getElementById("balance-budget").innerHTML = formatMoney(bh_balance_total - bh_total);
 
 
+}
+
+
+
+function formatMoney(price) {
+    let dollarUSLocale = Intl.NumberFormat('en-US');
+    return dollarUSLocale.format(price)
 }
 
 
