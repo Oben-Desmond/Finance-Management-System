@@ -1,6 +1,5 @@
-// const expense_error = document.getElementById("expense_error");
-let budgetHeadState = [];
-let expensesState = [];
+
+
 async function addExpense(expense) {
   // expense_error.innerHTML = ""
   try {
@@ -23,42 +22,42 @@ async function updateExpensesView() {
           <td>${index + 1}</td>
           <td>${expense.name}</td>
           <td>${expense.person}</td>
-          <td>${expense.amount}</td>
           <td>${expense.description}</td>
+          <td>${formatMoney(expense.amount)}</td>
           </tr>`;
     })
     .join("<br/>");
 
+
+
   tableEl.innerHTML = tableString;
-  getBudgetStats();
+  updateBudgetHeadView()
+
+  let sum = 0;
+  expenses.map((exp => {
+    sum += (+exp.amount)
+  }))
+
+  tableEl.innerHTML += `<tr>
+  <td></td>
+  <td> </td>
+  <td></td>
+  <td></td>
+  <td>${formatMoney(sum)}</td>
+  </tr>`;
 }
 
-async function getBudgetStats() {
-  let bh_total = 0;
-  let bh_balance_total = 0;
-  let bh_heads_expenses = [];
-
-  budgetHeadState.map((bh) => {
-    if (bh.amount) {
-      bh_balance_total += +(bh.amount + "");
-    }
-    const bh_expense_match = expensesState.filter(
-      (exp) => exp.budget_head == bh.id
-    );
-    bh_heads_expenses = [...bh_heads_expenses, ...bh_expense_match];
-  });
-
-  bh_heads_expenses.map((bh) => {
-    if (bh.amount) {
-      bh_total += +(bh.amount + "");
-    }
-  });
+async function getBudgetStats(total_sum, sum) {
 
   document.getElementById("assigned-budget").innerHTML =
-    formatMoney(bh_balance_total);
-  document.getElementById("balance-budget").innerHTML = formatMoney(
-    bh_balance_total - bh_total
+    formatMoney(total_sum);
+  document.getElementById("balance-budget").innerHTML = formatMoney(sum
   );
+  document.getElementById("total-bh").innerHTML = budgetHeadState.length
+  document.getElementById("select-bh").innerHTML = budgetHeadState.map((bh, index) => {
+    return `<option value='${bh.id}'>${bh.name}</option>`;
+  })
+
 }
 
 function formatMoney(price) {
@@ -66,107 +65,43 @@ function formatMoney(price) {
   return dollarUSLocale.format(price);
 }
 
-async function addBudgetHead(budget) {
-  // expense_error.innerHTML = ""
-  await window.api.addBudgetHeadIncome(budget);
-}
 
 async function updateBudgetHeadView() {
   let bh = await window.api.getBudgetData();
-  let bhEl = document.getElementById("total-bh");
-
-  bhEl.innerHTML = bh.length;
-  let tableEl = document.getElementById("expense-table");
+  console.log(bh)
   budgetHeadState = bh;
-  let tableString = bh
+  let total_bh_expenses = []
+  let total_sum = 0;
+  bh
     .map((expense) => {
-      return `<tr>
-          <td>${expense.id}</td>
-          <td>${expense.name}</td>
-          <td>${expense.amount}</td>
-          <td>${expense.description}</td>
-          <td>
-            <button onclick="editBudgetHead(${expense.id})" id="editBtn">Edit</button>
-            <button onclick="deleteBudgetHead(${expense.id})" id="deleteBtn">Delete</button>
-          </td>
-          </tr>`;
-    })
-    .join("<br/>");
 
-  tableEl.innerHTML = tableString;
+      let sum = 0;
+      const bh_expense_match = expensesState.filter(
+        (exp) => exp.budget_head == expense.id
+      );
+      total_bh_expenses = [...total_bh_expenses, ...bh_expense_match]
 
-  let selectBH = document.getElementById("select-bh");
-  selectBH.innerHTML = bh
-    .map((exp, index) => {
-      return `
-    <option value='${exp.id}'>${exp.name}</option>
-    `;
+      bh_expense_match.map((exp) => {
+        sum += Math.abs(exp.amount)
+      })
+      total_sum += Math.abs(expense.amount - sum)
     })
-    .join("<br/>");
-  getBudgetStats();
+  let sum = 0;
+  bh.map((b) => {
+    sum += Math.abs(b.amount);
+  })
+
+  getBudgetStats(total_sum, sum);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("Renderer > DOMContentLoaded");
   console.log(window);
 
-  // // TOTAL INCOME
-  // let income = await window.api.totalIncome();
-  // let incomeData = document.getElementById("totalIncome");
-  // incomeData.innerHTML = (income || '') + " FCFA";
 
-  // // TOTAL INCOME
 
   updateExpensesView();
-  updateBudgetHeadView();
 
-  // // // TOTAL RUNNING COST
-  // let Rcost = await window.api.runningCost();
-  // let RcostData = document.getElementById("runningCost");
-  // RcostData.innerHTML = Rcost + " FCFA";
 
-  // // // TOTAL RUNNING COST BALANCE
-  // let RcostBalance = await window.api.runningCostBalance();
-  // let RcostBalanceData = document.getElementById("runningCostBalance");
-  // RcostBalanceData.innerHTML = RcostBalance + " FCFA";
 
-  // // // TOTAL NUMBER OF STUDENTS
-  // let studentNumber = await window.api.getStudents();
-  // let ttlStudent = document.getElementById("studentNumber");
-  // ttlStudent.innerHTML = studentNumber.length;
-
-  // // GETTING ALL DEPARTMENTS
-  // let departments = await window.api.getDepartments();
-  // let deptNumber = document.getElementById("departmentNumber");
-  // deptNumber.innerHTML = departments.length; // NUMBER OF DEPARTMENTS
-
-  // // LISTING DEPARTMES
-  // let tableData = document.getElementById("departments");
-  // console.log(departments);
-  // let departmentString = departments
-  //   .map((dept) => {
-  //     return `<option id="${dept.Did}" value="${dept.department_name}">${dept.department_name}</option>`;
-  //   })
-  //   .join("<br/>");
-
-  // tableData.innerHTML = departmentString;
-
-  // // ADDING A NEW EXPENDITURE
-  // const expenseForm = document.getElementById("expenseForm");
-  // expenseForm.addEventListener("submit", function (e) {
-  //   e.preventDefault();
-  //   const expenditure = {
-  //     department: document.querySelector("#departments").value,
-  //     category: document.querySelector("#category").value,
-  //     amount: document.querySelector("#amount").value,
-  //     issuedTo: document.querySelector("#issuedTo").value,
-  //   };
-
-  //   let newExpenditure = window.api.addExpenditure(
-  //     (department = expenditure.department),
-  //     (category = expenditure.category),
-  //     (amount = expenditure.amount),
-  //     (issuedTo = expenditure.issuedTo)
-  //   );
-  // });
 });

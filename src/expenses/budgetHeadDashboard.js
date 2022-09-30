@@ -1,7 +1,6 @@
 var acc = document.getElementsByClassName("accordion");
 var i;
 
-
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function () {
     /* Toggle between adding and removing the "active" class,
@@ -29,86 +28,37 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 
-
-
-
 document
-  .getElementById("expense-form")
-  .addEventListener("submit", submitExpense);
+  .getElementById("budget-head-form")
+  .addEventListener("submit", submitBudgetHead);
 
-async function submitExpense(e) {
+function submitBudgetHead(e) {
   e.preventDefault();
 
-
-
-  const name = document.getElementById("select-bh");
-  const description = document.getElementById("bh-description");
-  const amount = document.getElementById("bh-amount");
-  const person = document.getElementById("bh-person");
-  const error = document.getElementById("bh-expense-error");
+  const name = document.getElementById("create-bh-name");
+  const description = document.getElementById("create-bh-desc");
+  const amount = document.getElementById("create-bh-amount");
+  const error = document.getElementById("create-bh-expense-error");
 
   error.innerHTML = "";
 
-  let currentBH = undefined;
-  console.log(budgetHeadState, name.value);
-
-  if (budgetHeadState) {
-    currentBH = budgetHeadState.find((bh) => bh.id == name.value);
-    if (currentBH) {
-      if (currentBH.amount < +amount.value) {
-        error.innerHTML = "Maximum allocatable amount is " + currentBH.amount;
-        return;
-      }
-    } else {
-      error.innerHTML = "unable to validate selected Budjet head";
-      return;
-    }
-  } else {
-    error.innerHTML = "unable to validate selected Budjet head";
-    return;
-  }
-
-
   try {
-    await window.api.updateBudgetHead(
-      currentBH.id,
-      currentBH.name,
-      currentBH.description,
-      currentBH.amount - +amount.value
-    );
-    addExpense({
-      name: currentBH.name,
+    addBudgetHead({
+      name: name.value,
       description: description.value,
       amount: amount.value,
-      person: person.value,
-      budget_head: currentBH.id,
     });
-    updateExpensesView();
     updateBudgetHeadView();
+    alert("cool")
+
     name.value = "";
     description.value = "";
-    person.value = "";
     amount.value = "";
     error.innerHTML = "";
   } catch (err) {
     error.innerHTML = "" + err;
   }
 }
-
-// ############# MODAL FUNCTION ###################################################################
-const modalFunction = () => {
-  var modal = document.getElementById("editModal");
-  var span = document.getElementsByClassName("close")[0];
-  modal.style.display = "block";
-  span.onclick = function () {
-    modal.style.display = "none";
-  };
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  };
-};
 
 const deleteModalFunction = () => {
   var modal = document.getElementById("deleteModal");

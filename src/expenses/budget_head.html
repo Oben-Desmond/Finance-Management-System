@@ -25,8 +25,8 @@
     <img src="../../assets/images/rhibms.jpeg" alt="" />
     <ul>
       <li><a href="../index.html">Home</a></li>
-      <li><a style="color: green; text-decoration: underline" href="./index.html">Expenses</a></li>
-      <li><a href="./budget_head.html">Budget Head</a></li>
+      <li><a href="./index.html">Expenses</a></li>
+      <li><a style="color: green; text-decoration: underline" href="./budget_head.html">Budget Head</a></li>
       <!-- <li>
           <a href="./bhList.html">Budget Heads</a>
         </li>
@@ -52,53 +52,49 @@
         <span id="balance-budget">0</span>
       </div>
     </div>
-
-
-    <button class="accordion">Expenses</button>
+    <div class="spacer"></div>
+    <button class="accordion">Budget Heads</button>
     <div class="panel">
       <div class="table-wrapper">
-        <table id="studentExpenseList">
+        <table id="studentList">
           <thead>
             <tr>
               <th>NO</th>
               <th>NAME</th>
-              <th>PERSON</th>
               <th>DESCRIPTION</th>
               <th>AMOUNT</th>
+              <th>BALANCE</th>
+              <th>ACTIONS</th>
             </tr>
           </thead>
-          <tbody id="expenses-table"></tbody>
+          <tbody id="expense-table"></tbody>
         </table>
       </div>
     </div>
-
-    <button class="accordion">Release Budgets</button>
-    <div class="panel income">
+    <button class="accordion">Create Budget Heads</button>
+    <div class="panel">
       <div class="form-wrapper">
-        <form id="expense-form">
+        <form id="budget-head-form">
           <div class="input-div">
-            <select name="Budget-Heads" id="select-bh"></select>
-          </div>
-          <div class="input-div">
-            <input required type="text" id="bh-description" placeholder="Reason" />
+            <input required type="text" id="create-bh-name" placeholder="NAME OF B.H" />
           </div>
           <div class="input-div">
-            <input required type="text" id="bh-person" placeholder="Person" />
+            <input required type="number" id="create-bh-amount" placeholder="Assigned Amount" />
           </div>
           <div class="input-div">
-            <input required type="number" id="bh-amount" placeholder="Amount" />
+            <input required type="text" id="create-bh-desc" placeholder="Description" />
           </div>
-          <!-- <div class="input-div">
-                        <input required type="date" id="studentLevel" placeholder="Date" />
-                    </div> -->
-          <div id="bh-expense-error" style="color: red; margin-top: 20px" class="expense-error padding text-danger">
-          </div>
-          <div id="expense-success" class="expense-success padding text-success"></div>
-
-          <button class="btn-warning btn">Release Budget</button>
+          <div id="create-bh-expense-error" style="margin-top: 20dp; color: red"
+            class="expense-error padding-top text-danger"></div>
+          <div id="create-bh-expense-error" style="margin-top: 20dp; color: red"
+            class="expense-error padding-top text-danger"></div>
+          <button type="submit">Add Budget Head</button>
         </form>
+
       </div>
     </div>
+
+
 
   </div>
 
@@ -137,9 +133,23 @@
     let budgetHeadState = [];
     let expensesState = [];
   </script>
-  <script src="./expense_renderer.js"></script>
-  <script src="./expDashboard.js"></script>
+  <script src="./bh_renderer.js"></script>
+  <script src="./budgetHeadDashboard.js"></script>
+  <!-- <script>
+      $(document).ready(function () {
+        $("#studentList").DataTable({
+          // dom: "Bfrtip",
+          buttons: ["copyHtml5", "excelHtml5", "pdfHtml5", "csvHtml5"],
+        });
+      });
 
+      $(document).ready(function () {
+        $("#studentExpenseList").DataTable({
+          // dom: "Bfrtip",
+          buttons: ["copyHtml5", "excelHtml5", "pdfHtml5", "csvHtml5"],
+        });
+      });
+    </script> -->
   <script></script>
 </body>
 
