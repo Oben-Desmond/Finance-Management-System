@@ -7,17 +7,44 @@ class Controller {
     const updateStudentBalance = `UPDATE students SET 
                                     balance = balance - ${amount},
                                     amount = amount + ${amount} WHERE id = ${id}`;
+    let lastTxnID = 0;
+    let studentBalance = 0;
+    const getLastFeeTxns = `SELECT Fid from feeTransactions`;
+    const getStudentBalance = `SELECT balance from students WHERE id = ${id}`;
 
     db.run(sql, [student_number, reg_number, student_name, amount], (err) => {
       if (err) {
         throw err;
       }
-    }).run(updateStudentBalance, (err) => {
-      if (err) {
-        throw err;
-      }
-      alert("Fee payment Successful");
-    });
+    })
+      .run(updateStudentBalance, (err) => {
+        if (err) {
+          throw err;
+        }
+      })
+      .get(getStudentBalance, (err, row) => {
+        if (err) {
+          throw err;
+        }
+        studentBalance = row.balance;
+
+        db.all(getLastFeeTxns, (err, rows) => {
+          if (err) {
+            throw err;
+          }
+          lastTxnID = rows.reverse()[0].Fid;
+
+          const updateFeeBalance = `UPDATE feeTransactions SET
+          balance =  ${studentBalance} WHERE Fid = ${lastTxnID}`;
+
+          db.run(updateFeeBalance, (err) => {
+            if (err) {
+              throw err;
+            }
+            alert("Fee payment Successful");
+          });
+        });
+      });
   }
 
   allFeeTransactions() {

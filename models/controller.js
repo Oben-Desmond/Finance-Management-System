@@ -113,6 +113,17 @@ class Controller {
             if (err) {
               throw err;
             }
+
+            const updateBalance = `UPDATE feeTransactions SET balance = ${
+              deptFee - amount
+            } WHERE student_number = ${student_number}`;
+
+            db.run(updateBalance, (err) => {
+              if (err) {
+                throw err;
+              }
+            });
+
             alert("Student Added Successfully");
           }
         );
