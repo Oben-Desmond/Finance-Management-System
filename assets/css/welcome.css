@@ -8,6 +8,7 @@ body {
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
     border-radius: 10px;
     min-height: 500px;
+    margin-top: 200px;
 }
 
 .welcome h1 {
@@ -15,6 +16,7 @@ body {
     padding-top: 100px;
     font-weight: bolder;
     font-size: 50px;
+    color: rgb(212, 181, 0);
 }
 
 .btns {

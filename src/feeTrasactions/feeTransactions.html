@@ -1,6 +1,5 @@
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="../../assets/css/main.css" />
     <link rel="stylesheet" href="../../assets/css/registeredStudents.css" />
     <link rel="stylesheet" href="../../assets/css/add.css" />
     <script src="../jquery.js"></script>
@@ -39,42 +38,55 @@
       type="text/javascript"
       src="../../DataTables//pdfmake-0.1.36/vfs_fonts.js"
     ></script>
-    <title>Expenses</title>
+    <title>FEE TRANSACTIONS</title>
   </head>
   <body>
     <header>
-      <img src="../../assets/images/rhibms.jpeg" alt="" />
+      <img src="../../assets//images/rhibms.jpeg" alt="" />
       <ul>
         <li><a href="../index.html">Home</a></li>
-        <li><a href="./index.html">Dashbaord</a></li>
+        <li><a href="../income/dashboard.html">Dashboard</a></li>
+        <li><a href="../students/add.html">New Student</a></li>
         <li>
-          <a href="./bhList.html">Budget Heads</a>
+          <a href="../students/registeredStudents.html">Students</a>
         </li>
-        <li><a href="./expenseList.html">Expenses</a></li>
+        <li><a href="../departments/addDepartment.html">New Department</a></li>
+        <li><a href="../departments/allDepartments.html">Departments</a></li>
+        <li>
+          <a href="../other_income/otherIncome.html">Add Income</a>
+        </li>
+        <li>
+          <a href="../other_income/allIncomes.html">Other Income</a>
+        </li>
       </ul>
     </header>
-
     <div class="table-wrapper">
-      <table id="studentExpenseList">
+      <table id="studentList">
         <thead>
           <tr>
             <th>NO</th>
+            <th>S/N</th>
+            <th>R/N</th>
             <th>NAME</th>
-            <th>PERSON</th>
-            <th>DESCRIPTION</th>
-            <th>AMOUNT</th>
+            <th>FEE PAID</th>
+            <th>BALANCE</th>
+            <th>DATE</th>
           </tr>
         </thead>
-        <tbody id="expenses-table"></tbody>
-        <tfoot id="totalSums"></tfoot>
+        <tbody id="students"></tbody>
+        <tfoot id="totalSums">
+          <tr>
+            <td>Sum</td>
+            <td>$180</td>
+          </tr>
+        </tfoot>
       </table>
     </div>
 
-    <script src="./expense_renderer.js"></script>
-    <script src="./expDashboard.js"></script>
+    <script src="./feeTransactions.js"></script>
     <script>
       $(document).ready(function () {
-        $("#studentExpenseList").DataTable({
+        $("#studentList").DataTable({
           aLengthMenu: [
             [25, 50, 75, -1],
             [25, 50, 75, "All"],
@@ -84,6 +96,5 @@
         });
       });
     </script>
-    <script></script>
   </body>
 </html>

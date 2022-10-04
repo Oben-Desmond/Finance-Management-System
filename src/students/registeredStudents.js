@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("Renderer > DOMContentLoaded");
 
+  function formatMoney(price) {
+    let dollarUSLocale = Intl.NumberFormat("en-US");
+    return dollarUSLocale.format(price);
+  }
+
   // ############# GET ALL STUDENTS CODE ###################################################################
   let students = await window.api.getStudents();
   let tableData = document.getElementById("students");
@@ -14,8 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         <td>${stud.student_name}</td>
         <td>${stud.student_level}</td>
         <td>${stud.student_section}</td>
-        <td>${stud.amount}</td>
-        <td>${stud.balance}</td>
+        <td>${formatMoney(stud.amount)}</td>
+        <td>${formatMoney(stud.balance)}</td>
         <td>${stud.Timestamp}</td>
         <td>
         <button onclick="payFee(${stud.id})" id="editBtn">Pay Fees</button>

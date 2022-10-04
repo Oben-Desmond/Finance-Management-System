@@ -21,12 +21,11 @@
   <script type="text/javascript" src="../DataTables/Buttons-2.2.3/js/buttons.html5.min.js"></script>
   <script type="text/javascript" src="../DataTables//pdfmake-0.1.36/pdfmake.min.js"></script>
   <script type="text/javascript" src="../DataTables//pdfmake-0.1.36/vfs_fonts.js"></script>
-
 </head>
 
 <body>
   <div class="welcome">
-    <h1>WELCOME TO RHIBMS</h1>
+    <h1>WELCOME TO FINANCE INC</h1>
 
     <div class="btns">
       <a onclick="NaviageTo('income')">INCOME</a>
@@ -41,33 +40,28 @@
       <div class="form-wrapper">
         <h3>Enter Valid Password</h3>
         <form id="pass-form">
-
           <div class="input-div">
             <input required type="password" id="input-pass" placeholder="********" />
           </div>
 
-          <div style="color:red; margin:10px 0px" id="error"></div>
+          <div style="color: red; margin: 10px 0px" id="error"></div>
           <button type="submit">Login</button>
         </form>
       </div>
     </div>
   </div>
-
 </body>
 <script>
+  var form = document.getElementById("pass-form");
+  var inputPass = document.getElementById("input-pass");
+  var error = document.getElementById("error");
+  let path = "../src/income/dashboard.html";
 
-  var form = document.getElementById("pass-form")
-  var inputPass = document.getElementById("input-pass")
-  var error = document.getElementById("error")
-  let path = "../src/income/dashboard.html"
-
-  function NaviageTo(route = 'income') {
-
+  function NaviageTo(route = "income") {
     if (route == "expense") {
-      path = "../src/expenses/index.html"
-    }
-    else {
-      path = "../src/income/dashboard.html"
+      path = "../src/expenses/index.html";
+    } else {
+      path = "../src/income/dashboard.html";
     }
 
     var modal = document.getElementById("modal");
@@ -81,31 +75,26 @@
         modal.style.display = "none";
       }
     };
-
   }
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    error.innerHTML = "<br/>"
+    error.innerHTML = "<br/>";
 
     setTimeout(() => {
-
       const pass = inputPass.value;
 
       if (pass !== "Buk@2007finance") {
-        error.innerHTML = "wrong password! try again"
+        error.innerHTML = "wrong password! try again";
         return;
       }
 
-      const a = document.createElement("a")
+      const a = document.createElement("a");
       a.href = path;
-      a.click()
-      error.innerHTML = ""
+      a.click();
+      error.innerHTML = "";
     }, 500);
-
-
-
-  })
+  });
 </script>
 
 </html>

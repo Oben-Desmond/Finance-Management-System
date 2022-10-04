@@ -26,7 +26,9 @@
     <ul>
       <li><a href="../index.html">Home</a></li>
       <li><a href="./index.html">Expenses</a></li>
-      <li><a style="color: green; text-decoration: underline" href="./budget_head.html">Budget Head</a></li>
+      <li>
+        <a style="color: green; text-decoration: underline" href="./budget_head.html">Budget Head</a>
+      </li>
       <!-- <li>
           <a href="./bhList.html">Budget Heads</a>
         </li>
@@ -90,12 +92,8 @@
             class="expense-error padding-top text-danger"></div>
           <button type="submit">Add Budget Head</button>
         </form>
-
       </div>
     </div>
-
-
-
   </div>
 
   <!-- The Modal -->
@@ -135,21 +133,18 @@
   </script>
   <script src="./bh_renderer.js"></script>
   <script src="./budgetHeadDashboard.js"></script>
-  <!-- <script>
-      $(document).ready(function () {
-        $("#studentList").DataTable({
-          // dom: "Bfrtip",
-          buttons: ["copyHtml5", "excelHtml5", "pdfHtml5", "csvHtml5"],
-        });
+  <script>
+    $(document).ready(function () {
+      $("#studentList").DataTable({
+        aLengthMenu: [
+          [25, 50, 75, -1],
+          [25, 50, 75, "All"],
+        ],
+        iDisplayLength: 75,
+        dom: "Bfrtip",
       });
-
-      $(document).ready(function () {
-        $("#studentExpenseList").DataTable({
-          // dom: "Bfrtip",
-          buttons: ["copyHtml5", "excelHtml5", "pdfHtml5", "csvHtml5"],
-        });
-      });
-    </script> -->
+    });
+  </script>
   <script></script>
 </body>
 

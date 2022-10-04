@@ -1,5 +1,3 @@
-
-
 async function addExpense(expense) {
   // expense_error.innerHTML = ""
   try {
@@ -31,12 +29,12 @@ async function updateExpensesView() {
 
 
   tableEl.innerHTML = tableString;
-  updateBudgetHeadView()
+  updateBudgetHeadView();
 
   let sum = 0;
-  expenses.map((exp => {
-    sum += (+exp.amount)
-  }))
+  expenses.map((exp) => {
+    sum += +exp.amount;
+  });
 
   tableEl.innerHTML += `<tr>
   <td></td>
@@ -48,10 +46,13 @@ async function updateExpensesView() {
 }
 
 async function getBudgetStats(total_sum, sum) {
-
-  document.getElementById("assigned-budget").innerHTML =
-    formatMoney(total_sum);
-  document.getElementById("balance-budget").innerHTML = formatMoney(sum
+  document.getElementById("assigned-budget").innerHTML = formatMoney(total_sum);
+  document.getElementById("balance-budget").innerHTML = formatMoney(sum);
+  document.getElementById("total-bh").innerHTML = budgetHeadState.length;
+  document.getElementById("select-bh").innerHTML = budgetHeadState.map(
+    (bh, index) => {
+      return `<option value='${bh.id}'>${bh.name}</option>`;
+    }
   );
   document.getElementById("total-bh").innerHTML = budgetHeadState.length
   document.getElementById("select-bh").innerHTML = budgetHeadState.map((bh, index) => {
@@ -65,31 +66,28 @@ function formatMoney(price) {
   return dollarUSLocale.format(price);
 }
 
-
 async function updateBudgetHeadView() {
   let bh = await window.api.getBudgetData();
-  console.log(bh)
+  console.log(bh);
   budgetHeadState = bh;
-  let total_bh_expenses = []
+  let total_bh_expenses = [];
   let total_sum = 0;
-  bh
-    .map((expense) => {
+  bh.map((expense) => {
+    let sum = 0;
+    const bh_expense_match = expensesState.filter(
+      (exp) => exp.budget_head == expense.id
+    );
+    total_bh_expenses = [...total_bh_expenses, ...bh_expense_match];
 
-      let sum = 0;
-      const bh_expense_match = expensesState.filter(
-        (exp) => exp.budget_head == expense.id
-      );
-      total_bh_expenses = [...total_bh_expenses, ...bh_expense_match]
-
-      bh_expense_match.map((exp) => {
-        sum += Math.abs(exp.amount)
-      })
-      total_sum += Math.abs(expense.amount - sum)
-    })
+    bh_expense_match.map((exp) => {
+      sum += Math.abs(exp.amount);
+    });
+    total_sum += Math.abs(expense.amount - sum);
+  });
   let sum = 0;
   bh.map((b) => {
     sum += Math.abs(b.amount);
-  })
+  });
 
   getBudgetStats(total_sum, sum);
 }
@@ -98,10 +96,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   console.log("Renderer > DOMContentLoaded");
   console.log(window);
 
-
-
   updateExpensesView();
-
-
-
 });
