@@ -1,0 +1,139 @@
+<!--index.html-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RHIBMS</title>
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <link rel="stylesheet" href="../../assets/css/registeredStudents.css" />
+    <link rel="stylesheet" href="../../assets/css/add.css" />
+    <script src="../jquery.js"></script>
+    <script type="text/javascript" src="../../DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../DataTables/DataTables-1.12.1/css/jquery.dataTables.min.css" />
+
+</head>
+
+<body>
+    <header>
+        <img src="../../assets/images/rhibms.jpeg" alt="" />
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a style="color: green; text-decoration: underline" href="./mainDashboard.expenses.html">Summary</a>
+            </li>
+            <li><a href="./index.html">Expenses</a></li>
+            <li>
+                <a href="./budget_head.html">Budget Head</a>
+            </li>
+            <!-- <li>
+          <a href="./bhList.html">Budget Heads</a>
+        </li>
+        <li><a href="./expenseList.html">Expenses</a></li> -->
+        </ul>
+    </header>
+    <div class="dashboard-wrapper">
+        <div class="cards">
+            <div class="card incomeCard">
+                <h3>TOTAL EXPENSES</h3>
+                <span id="total-expenses">0</span>
+            </div>
+            <div class="card rnxCostCard">
+                <h3>TOTAL BUDGET HEADS</h3>
+                <span id="total-bh">0</span>
+            </div>
+            <div class="card rnxCostBalanceCard">
+                <h3>TOTAL BUDGET ASSIGNED</h3>
+                <span id="assigned-budget">0</span>
+            </div>
+            <div class="card numStudentsCard">
+                <h3>BALANCE BUDGET ASSIGNED</h3>
+                <span id="balance-budget">0</span>
+            </div>
+        </div>
+
+
+
+        <script>
+            // const expense_error = document.getElementById("expense_error");
+            let budgetHeadState = [];
+            let expensesState = [];
+        </script>
+
+        <script>
+            $(document).ready(function () {
+
+            });
+        </script>
+        <script></script>
+
+
+        <script>
+            $(document).ready(function () {
+                updateExpensesView()
+                updateBudgetHeadView()
+            });
+            async function updateExpensesView() {
+                let expenses = await window.api.totalIncomeExpenses();
+                expensesState = expenses;
+                document.getElementById("total-expenses").innerHTML = expenses.length
+
+
+            }
+
+
+
+            function formatMoney(price) {
+                let dollarUSLocale = Intl.NumberFormat("en-US");
+                return dollarUSLocale.format(price);
+            }
+
+            async function addBudgetHead(budget) {
+                // expense_error.innerHTML = ""
+                await window.api.addBudgetHeadIncome(budget);
+            }
+
+            async function updateBudgetHeadView() {
+                let bh = await window.api.getBudgetData();
+                let bhEl = document.getElementById("total-bh");
+                bhEl.innerHTML = bh.length;
+                budgetHeadState = bh;
+                let total_bh_expenses = []
+                let total_sum = 0;
+                let tableString = bh
+                    .map((expense) => {
+
+                        let sum = 0;
+                        const bh_expense_match = expensesState.filter(
+                            (exp) => exp.budget_head == expense.id
+                        );
+                        total_bh_expenses = [...total_bh_expenses, ...bh_expense_match]
+
+                        bh_expense_match.map((exp) => {
+                            sum += Math.abs(exp.amount)
+                        })
+                        total_sum += Math.abs(expense.amount - sum)
+
+                    })
+
+
+
+                let sum = 0;
+                bh.map((b) => {
+                    sum += Math.abs(b.amount);
+                })
+
+
+
+
+
+                document.getElementById("assigned-budget").innerHTML =
+                    formatMoney(total_sum);
+                document.getElementById("balance-budget").innerHTML = formatMoney(
+                    sum
+                );
+            }
+        </script>
+
+</body>
+
+</html>

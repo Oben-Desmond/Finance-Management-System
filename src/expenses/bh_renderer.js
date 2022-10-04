@@ -1,4 +1,4 @@
-
+let initialized = false;
 
 async function updateExpensesView() {
   let expenses = await window.api.totalIncomeExpenses();
@@ -9,11 +9,7 @@ async function updateExpensesView() {
 
 async function getBudgetStats(total_sum, sum) {
 
-  document.getElementById("assigned-budget").innerHTML =
-    formatMoney(total_sum);
-  document.getElementById("balance-budget").innerHTML = formatMoney(
-    sum
-  );
+
 }
 
 function formatMoney(price) {
@@ -28,9 +24,8 @@ async function addBudgetHead(budget) {
 
 async function updateBudgetHeadView() {
   let bh = await window.api.getBudgetData();
-  let bhEl = document.getElementById("total-bh");
 
-  bhEl.innerHTML = bh.length;
+
   let tableEl = document.getElementById("expense-table");
   budgetHeadState = bh;
   let total_bh_expenses = []
@@ -81,7 +76,27 @@ async function updateBudgetHeadView() {
   <td></td>
   <td>${formatMoney(total_sum)}</td>
   <td>${formatMoney(sum)}</td>
-  </tr>`;
+  <td></td>
+</tr>`;
+
+  if (initialized) {
+    return;
+  }
+
+  try {
+    $("#studentList").DataTable({
+      aLengthMenu: [
+        [25, 50, 75, -1],
+        [25, 50, 75, "All"],
+      ],
+      iDisplayLength: 75,
+      dom: "Bfrtip",
+    });
+  } catch (err) {
+    console.log(err)
+  }
+
+  initialized = true;
 
   getBudgetStats(total_sum, sum);
 }
