@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("Renderer > DOMContentLoaded");
 
+  function formatMoney(price) {
+    let dollarUSLocale = Intl.NumberFormat("en-US");
+    return dollarUSLocale.format(price);
+  }
+
   // GETTING ALL DEPARTMENTS
   let departments = await window.api.getDepartments();
   let tableData = document.getElementById("departments");
@@ -10,10 +15,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         <td>${dept.Did}</td>
         <td>${dept.dept_name}</td>
         <td>${dept.dept_desc}</td>
-        <td>${dept.fee_amount}</td>
+        <td>${formatMoney(dept.fee_amount)}</td>
         <td>
-          <button onclick="editDepartment(${dept.Did})" id="editBtn">Edit</button>
-          <button onclick="deleteDepartment(${dept.Did})" id="deleteBtn">Delete</button>
+          <button onclick="editDepartment(${
+            dept.Did
+          })" id="editBtn">Edit</button>
+          <button onclick="deleteDepartment(${
+            dept.Did
+          })" id="deleteBtn">Delete</button>
         </td>
         </tr>`;
     })

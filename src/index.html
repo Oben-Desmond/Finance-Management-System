@@ -5,14 +5,125 @@
   <head>
     <title>RHIBMS</title>
     <link rel="stylesheet" href="../assets/css/welcome.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/registeredStudents.css" />
+    <link rel="stylesheet" href="../assets/css/add.css" />
+    <script src="./jquery.js"></script>
+    <script
+      type="text/javascript"
+      src="../DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../DataTables/DataTables-1.12.1/css/jquery.dataTables.min.css"
+    />
+
+    <script
+      type="text/javascript"
+      src="../DataTables/Buttons-2.2.3/js/dataTables.buttons.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../DataTables/Buttons-2.2.3/css/buttons.dataTables.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="../DataTables/JSZip-2.5.0/jszip.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../DataTables/Buttons-2.2.3/js/buttons.html5.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../DataTables//pdfmake-0.1.36/pdfmake.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="../DataTables//pdfmake-0.1.36/vfs_fonts.js"
+    ></script>
   </head>
+
   <body>
     <div class="welcome">
       <h1>WELCOME TO FINANCE INC</h1>
+
       <div class="btns">
-        <a href="../src/income/dashboard.html">INCOME</a>
-        <a href="../src/expenses/index.html">EXPENSES</a>
+        <a onclick="NaviageTo('income')">INCOME</a>
+        <a onclick="NaviageTo('expense')">EXPENSES</a>
+      </div>
+    </div>
+    <!-- The Modal -->
+    <div id="modal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="form-wrapper">
+          <h3>Enter Valid Password</h3>
+          <form id="pass-form">
+            <div class="input-div">
+              <input
+                required
+                type="password"
+                id="input-pass"
+                placeholder="********"
+              />
+            </div>
+
+            <div style="color: red; margin: 10px 0px" id="error"></div>
+            <button type="submit">Login</button>
+          </form>
+        </div>
       </div>
     </div>
   </body>
+  <script>
+    var form = document.getElementById("pass-form");
+    var inputPass = document.getElementById("input-pass");
+    var error = document.getElementById("error");
+    let path = "../src/income/dashboard.html";
+
+    function NaviageTo(route = "income") {
+      if (route == "expense") {
+        path = "../src/expenses/index.html";
+      } else {
+        path = "../src/income/dashboard.html";
+      }
+
+      var modal = document.getElementById("modal");
+      var span = document.getElementsByClassName("close")[0];
+      modal.style.display = "block";
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      error.innerHTML = "<br/>";
+
+      setTimeout(() => {
+        const pass = inputPass.value;
+
+        if (pass !== "Buk@2007finance") {
+          error.innerHTML = "wrong password! try again";
+          return;
+        }
+
+        const a = document.createElement("a");
+        a.href = path;
+        a.click();
+        error.innerHTML = "";
+      }, 500);
+    });
+  </script>
 </html>

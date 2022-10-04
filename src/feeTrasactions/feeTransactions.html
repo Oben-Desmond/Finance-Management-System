@@ -74,6 +74,12 @@
           </tr>
         </thead>
         <tbody id="students"></tbody>
+        <tfoot id="totalSums">
+          <tr>
+            <td>Sum</td>
+            <td>$180</td>
+          </tr>
+        </tfoot>
       </table>
     </div>
 
@@ -81,8 +87,12 @@
     <script>
       $(document).ready(function () {
         $("#studentList").DataTable({
+          aLengthMenu: [
+            [25, 50, 75, -1],
+            [25, 50, 75, "All"],
+          ],
+          iDisplayLength: 75,
           dom: "Bfrtip",
-          buttons: ["copyHtml5", "excelHtml5", "pdfHtml5", "csvHtml5"],
         });
       });
     </script>
