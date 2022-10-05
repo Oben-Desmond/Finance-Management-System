@@ -4,7 +4,6 @@ async function updateExpensesView() {
   let expenses = await window.api.totalIncomeExpenses();
   expensesState = expenses;
 
-  getBudgetStats();
 }
 
 async function getBudgetStats(total_sum, sum) { }
@@ -24,27 +23,16 @@ async function updateBudgetHeadView() {
 
   let tableEl = document.getElementById("expense-table");
   budgetHeadState = bh;
-  let total_bh_expenses = [];
   let total_sum = 0;
   let tableString = bh
     .map((expense) => {
-      let sum = 0;
-      const bh_expense_match = expensesState.filter(
-        (exp) => exp.budget_head == expense.id
-      );
-      total_bh_expenses = [...total_bh_expenses, ...bh_expense_match];
-
-      bh_expense_match.map((exp) => {
-        sum += Math.abs(exp.amount);
-      });
-      total_sum += Math.abs(expense.amount - sum);
 
       return `<tr>
           <td>${expense.id}</td>
           <td>${expense.name}</td>
           <td>${expense.description}</td>
-          <td>${formatMoney(Math.abs(expense.amount - sum))}</td>
-          <td>${formatMoney(expense.amount)}</td>
+          <td>${formatMoney(Math.abs(expense.amount))}</td>
+          <td>${formatMoney(expense.balance)}</td>
           <td>
             <button onclick="editBudgetHead(${expense.id
         })" id="editBtn">Edit</button>
@@ -56,9 +44,10 @@ async function updateBudgetHeadView() {
     .join("<br/>");
 
   tableEl.innerHTML = tableString;
-  let sum = 0;
+  let balance = 0;
   bh.map((b) => {
-    sum += Math.abs(b.amount);
+    balance += Math.abs(b.balance);
+    total_sum += Math.abs(b.amount);
   });
 
   // let bh_expense_total = 0;
@@ -71,7 +60,7 @@ async function updateBudgetHeadView() {
   tableElSum.innerHTML = `<tr>
   <td colspan="3">SUM TOTALS</td>
   <td>${formatMoney(total_sum)}</td>
-  <td>${formatMoney(sum)}</td>
+  <td>${formatMoney(balance)}</td>
   <td></td>
 </tr>`;
 
@@ -94,7 +83,6 @@ async function updateBudgetHeadView() {
 
   initialized = true;
 
-  getBudgetStats(total_sum, sum);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {

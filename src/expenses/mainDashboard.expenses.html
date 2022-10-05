@@ -97,39 +97,19 @@
                 let bhEl = document.getElementById("total-bh");
                 bhEl.innerHTML = bh.length;
                 budgetHeadState = bh;
-                let total_bh_expenses = []
                 let total_sum = 0;
-                let tableString = bh
-                    .map((expense) => {
+                let balance = 0;
 
-                        let sum = 0;
-                        const bh_expense_match = expensesState.filter(
-                            (exp) => exp.budget_head == expense.id
-                        );
-                        total_bh_expenses = [...total_bh_expenses, ...bh_expense_match]
-
-                        bh_expense_match.map((exp) => {
-                            sum += Math.abs(exp.amount)
-                        })
-                        total_sum += Math.abs(expense.amount - sum)
-
-                    })
-
-
-
-                let sum = 0;
                 bh.map((b) => {
-                    sum += Math.abs(b.amount);
-                })
-
-
-
+                    balance += Math.abs(b.balance);
+                    total_sum += Math.abs(b.amount);
+                });
 
 
                 document.getElementById("assigned-budget").innerHTML =
                     formatMoney(total_sum);
                 document.getElementById("balance-budget").innerHTML = formatMoney(
-                    sum
+                    balance
                 );
             }
         </script>

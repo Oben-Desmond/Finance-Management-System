@@ -200,8 +200,8 @@ module.exports = getBudgetHeadById = (id) => {
   return expenseCtrl.getBudgetHeadById(id);
 };
 
-module.exports = updateBudgetHead = (id, name, description, amount) => {
-  return expenseCtrl.updateBudgetHead(id, name, description, amount);
+module.exports = updateBudgetHead = (id, name, description, amount, balance) => {
+  return expenseCtrl.updateBudgetHead(id, name, description, amount, balance);
 };
 
 module.exports = deleteBudgetHead = (id) => {
