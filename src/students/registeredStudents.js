@@ -151,6 +151,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     oneStudent.map((data) => {
       student_number = data.student_number;
       reg_number = data.registration_number;
+      department = data.student_section;
       student_name = data.student_name;
       amountPaid = data.amount;
       balance = data.balance;

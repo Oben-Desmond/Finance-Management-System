@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   var totalSums = `<tr>
-  <td colspan="4">SUM TOTALS</td>
+  <td colspan="5">SUM TOTALS</td>
   <td>${formatMoney(totalFee)}</td>
   <td>${formatMoney(totalBalance)}</td>
   </tr>`;
@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <td>${stud.student_number}</td>
           <td>${stud.reg_number}</td>
           <td>${stud.student_name}</td>
+          <td>${stud.department}</td>
           <td>${formatMoney(stud.amount)}</td>
           <td>${formatMoney(stud.balance)}</td>
           <td>${stud.Timestamp}</td>

@@ -70,8 +70,8 @@ class Controller {
       amount) VALUES (?,?,?,?,?,?)`;
     let deptFee = 0;
     const getFee = `SELECT fee_amount FROM departments WHERE dept_name LIKE '%${student_section}%'`;
-    const recordFeePayment = `INSERT INTO feeTransactions (student_number, reg_number, student_name, amount) 
-                  VALUES (?,?,?,?)`;
+    const recordFeePayment = `INSERT INTO feeTransactions (student_number, reg_number, department, student_name, amount) 
+                  VALUES (?,?,?,?,?)`;
 
     db.serialize(() => {
       db.run(
@@ -108,7 +108,13 @@ class Controller {
         })
         .run(
           recordFeePayment,
-          [student_number, registration_number, student_name, amount],
+          [
+            student_number,
+            registration_number,
+            student_section,
+            student_name,
+            amount,
+          ],
           (err) => {
             if (err) {
               throw err;

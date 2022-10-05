@@ -2,8 +2,9 @@ var dbmgr = require("./dbmgr");
 var db = dbmgr.db;
 
 class Controller {
-  payFee(id, student_number, reg_number, student_name, amount) {
-    const sql = `INSERT INTO feeTransactions (student_number, reg_number, student_name, amount) VALUES (?,?,?,?)`;
+  payFee(id, student_number, reg_number, department, student_name, amount) {
+    console.log(department);
+    const sql = `INSERT INTO feeTransactions (student_number, reg_number, department, student_name, amount) VALUES (?,?,?,?,?)`;
     const updateStudentBalance = `UPDATE students SET 
                                     balance = balance - ${amount},
                                     amount = amount + ${amount} WHERE id = ${id}`;
@@ -12,11 +13,15 @@ class Controller {
     const getLastFeeTxns = `SELECT Fid from feeTransactions`;
     const getStudentBalance = `SELECT balance from students WHERE id = ${id}`;
 
-    db.run(sql, [student_number, reg_number, student_name, amount], (err) => {
-      if (err) {
-        throw err;
+    db.run(
+      sql,
+      [student_number, reg_number, department, student_name, amount],
+      (err) => {
+        if (err) {
+          throw err;
+        }
       }
-    })
+    )
       .run(updateStudentBalance, (err) => {
         if (err) {
           throw err;

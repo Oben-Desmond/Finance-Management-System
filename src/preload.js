@@ -200,7 +200,13 @@ module.exports = getBudgetHeadById = (id) => {
   return expenseCtrl.getBudgetHeadById(id);
 };
 
-module.exports = updateBudgetHead = (id, name, description, amount, balance) => {
+module.exports = updateBudgetHead = (
+  id,
+  name,
+  description,
+  amount,
+  balance
+) => {
   return expenseCtrl.updateBudgetHead(id, name, description, amount, balance);
 };
 
@@ -232,6 +238,7 @@ module.exports = payFee = (
   id,
   student_number,
   reg_number,
+  department,
   student_name,
   amount
 ) => {
@@ -239,6 +246,7 @@ module.exports = payFee = (
     id,
     student_number,
     reg_number,
+    department,
     student_name,
     amount
   );
