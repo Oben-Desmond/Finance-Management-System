@@ -17,32 +17,6 @@
       type="text/css"
       href="../../DataTables/DataTables-1.12.1/css/jquery.dataTables.min.css"
     />
-
-    <script
-      type="text/javascript"
-      src="../../DataTables/Buttons-2.2.3/js/dataTables.buttons.min.js"
-    ></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../DataTables/Buttons-2.2.3/css/buttons.dataTables.min.css"
-    />
-    <script
-      type="text/javascript"
-      src="../../DataTables/JSZip-2.5.0/jszip.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="../../DataTables/Buttons-2.2.3/js/buttons.html5.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="../../DataTables//pdfmake-0.1.36/pdfmake.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="../../DataTables//pdfmake-0.1.36/vfs_fonts.js"
-    ></script>
   </head>
 
   <body>
@@ -50,6 +24,7 @@
       <img src="../../assets/images/rhibms.jpeg" alt="" />
       <ul>
         <li><a href="../index.html">Home</a></li>
+        <li><a href="./mainDashboard.expenses.html">Summary</a></li>
         <li><a href="./index.html">Expenses</a></li>
         <li>
           <a
@@ -65,24 +40,6 @@
       </ul>
     </header>
     <div class="dashboard-wrapper">
-      <div class="cards">
-        <div class="card incomeCard">
-          <h3>TOTAL EXPENSES</h3>
-          <span id="total-expenses">0</span>
-        </div>
-        <div class="card rnxCostCard">
-          <h3>TOTAL BUDGET HEADS</h3>
-          <span id="total-bh">0</span>
-        </div>
-        <div class="card rnxCostBalanceCard">
-          <h3>TOTAL BUDGET ASSIGNED</h3>
-          <span id="assigned-budget">0</span>
-        </div>
-        <div class="card numStudentsCard">
-          <h3>BALANCE BUDGET ASSIGNED</h3>
-          <span id="balance-budget">0</span>
-        </div>
-      </div>
       <div class="spacer"></div>
       <button class="accordion">Budget Heads</button>
       <div class="panel">
@@ -99,6 +56,7 @@
               </tr>
             </thead>
             <tbody id="expense-table"></tbody>
+            <tfoot id="bhtotalSums"></tfoot>
           </table>
         </div>
       </div>
@@ -202,16 +160,7 @@
     <script src="./bh_renderer.js"></script>
     <script src="./budgetHeadDashboard.js"></script>
     <script>
-      $(document).ready(function () {
-        $("#studentList").DataTable({
-          aLengthMenu: [
-            [25, 50, 75, -1],
-            [25, 50, 75, "All"],
-          ],
-          iDisplayLength: 75,
-          dom: "Bfrtip",
-        });
-      });
+      $(document).ready(function () {});
     </script>
     <script></script>
   </body>

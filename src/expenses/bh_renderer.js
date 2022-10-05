@@ -1,4 +1,4 @@
-
+let initialized = false;
 
 async function updateExpensesView() {
   let expenses = await window.api.totalIncomeExpenses();
@@ -7,14 +7,7 @@ async function updateExpensesView() {
   getBudgetStats();
 }
 
-async function getBudgetStats(total_sum, sum) {
-
-  document.getElementById("assigned-budget").innerHTML =
-    formatMoney(total_sum);
-  document.getElementById("balance-budget").innerHTML = formatMoney(
-    sum
-  );
-}
+async function getBudgetStats(total_sum, sum) {}
 
 function formatMoney(price) {
   let dollarUSLocale = Intl.NumberFormat("en-US");
@@ -28,37 +21,37 @@ async function addBudgetHead(budget) {
 
 async function updateBudgetHeadView() {
   let bh = await window.api.getBudgetData();
-  let bhEl = document.getElementById("total-bh");
 
-  bhEl.innerHTML = bh.length;
   let tableEl = document.getElementById("expense-table");
   budgetHeadState = bh;
-  let total_bh_expenses = []
+  let total_bh_expenses = [];
   let total_sum = 0;
   let tableString = bh
     .map((expense) => {
-
       let sum = 0;
       const bh_expense_match = expensesState.filter(
         (exp) => exp.budget_head == expense.id
       );
-      total_bh_expenses = [...total_bh_expenses, ...bh_expense_match]
+      total_bh_expenses = [...total_bh_expenses, ...bh_expense_match];
 
       bh_expense_match.map((exp) => {
-        sum += Math.abs(exp.amount)
-      })
-      total_sum += Math.abs(expense.amount - sum)
-
+        sum += Math.abs(exp.amount);
+      });
+      total_sum += Math.abs(expense.amount - sum);
 
       return `<tr>
           <td>${expense.id}</td>
           <td>${expense.name}</td>
           <td>${expense.description}</td>
-          <td>${Math.abs(expense.amount - sum)}</td>
-          <td>${expense.amount}</td>
+          <td>${formatMoney(Math.abs(expense.amount - sum))}</td>
+          <td>${formatMoney(expense.amount)}</td>
           <td>
-            <button onclick="editBudgetHead(${expense.id})" id="editBtn">Edit</button>
-            <button onclick="deleteBudgetHead(${expense.id})" id="deleteBtn">Delete</button>
+            <button onclick="editBudgetHead(${
+              expense.id
+            })" id="editBtn">Edit</button>
+            <button onclick="deleteBudgetHead(${
+              expense.id
+            })" id="deleteBtn">Delete</button>
           </td>
           </tr>`;
     })
@@ -68,20 +61,40 @@ async function updateBudgetHeadView() {
   let sum = 0;
   bh.map((b) => {
     sum += Math.abs(b.amount);
-  })
+  });
 
   // let bh_expense_total = 0;
   // total_bh_expenses.map(res => {
   //   bh_expense_total += Math.abs(res.amount)
   // })
 
-  tableEl.innerHTML += `<tr>
-  <td></td>
-  <td> </td>
-  <td></td>
+  let tableElSum = document.getElementById("bhtotalSums");
+
+  tableElSum.innerHTML = `<tr>
+  <td colspan="3">SUM TOTALS</td>
   <td>${formatMoney(total_sum)}</td>
   <td>${formatMoney(sum)}</td>
-  </tr>`;
+  <td></td>
+</tr>`;
+
+  if (initialized) {
+    return;
+  }
+
+  try {
+    $("#studentList").DataTable({
+      aLengthMenu: [
+        [25, 50, 75, -1],
+        [25, 50, 75, "All"],
+      ],
+      iDisplayLength: 75,
+      dom: "Bfrtip",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
+  initialized = true;
 
   getBudgetStats(total_sum, sum);
 }

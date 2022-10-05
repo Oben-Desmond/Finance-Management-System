@@ -49,7 +49,6 @@ function submitBudgetHead(e) {
       amount: amount.value,
     });
     updateBudgetHeadView();
-    alert("cool")
 
     name.value = "";
     description.value = "";
@@ -122,7 +121,7 @@ deleteHandler = async function (id) {
 
 deleteBudgetHead = function (id) {
   if (!id) {
-    alert(id);
+    // alert(id);
     return;
   }
   deleteModalFunction();

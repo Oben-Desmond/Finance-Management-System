@@ -1,3 +1,5 @@
+let initialized = false;
+
 async function addExpense(expense) {
   // expense_error.innerHTML = ""
   try {
@@ -10,8 +12,7 @@ async function addExpense(expense) {
 
 async function updateExpensesView() {
   let expenses = await window.api.totalIncomeExpenses();
-  let expensesEl = document.getElementById("total-expenses");
-  expensesEl.innerHTML = expenses.length;
+
   expensesState = expenses;
   let tableEl = document.getElementById("expenses-table");
   let tableString = expenses
@@ -34,19 +35,39 @@ async function updateExpensesView() {
     sum += +exp.amount;
   });
 
-  tableEl.innerHTML += `<tr>
-  <td></td>
-  <td> </td>
-  <td></td>
-  <td></td>
+  let tableElSum = document.getElementById("exptotalSums");
+  tableElSum.innerHTML = `<tr>
+  <td colspan="4">SUM TOTAL</td>
   <td>${formatMoney(sum)}</td>
   </tr>`;
+
+  if (initialized) {
+    return;
+  }
+
+  try {
+    $("#studentExpenseList").DataTable({
+      aLengthMenu: [
+        [25, 50, 75, -1],
+        [25, 50, 75, "All"],
+      ],
+      iDisplayLength: 75,
+      dom: "Bfrtip",
+      buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdfHtml5"],
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
+  initialized = true;
 }
 
 async function getBudgetStats(total_sum, sum) {
-  document.getElementById("assigned-budget").innerHTML = formatMoney(total_sum);
-  document.getElementById("balance-budget").innerHTML = formatMoney(sum);
-  document.getElementById("total-bh").innerHTML = budgetHeadState.length;
+  document.getElementById("select-bh").innerHTML = budgetHeadState.map(
+    (bh, index) => {
+      return `<option value='${bh.id}'>${bh.name}</option>`;
+    }
+  );
   document.getElementById("select-bh").innerHTML = budgetHeadState.map(
     (bh, index) => {
       return `<option value='${bh.id}'>${bh.name}</option>`;
