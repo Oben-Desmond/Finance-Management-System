@@ -111,6 +111,7 @@ editBudgetHead = async (id) => {
       budget_head.name,
       budget_head.description,
       budget_head.amount,
+      null
     );
 
     var modal = document.getElementById("editModal");

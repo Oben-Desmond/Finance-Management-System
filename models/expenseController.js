@@ -116,15 +116,27 @@ class Controller {
     }
 
     updateBudgetHead(id, name, description, amount, balance) {
-        const sql = `UPDATE budget_head SET 
+
+        let sql = `UPDATE budget_head SET 
+        name = ?,
+        description = ?
+        WHERE id = ${id}`
+
+        let params = [name, description,];
+
+        if (balance) {
+            sql = `UPDATE budget_head SET 
         name = ?,
         description = ?,
         amount = ?,
         balance = ?
         WHERE id = ${id}`;
+            params = [name, description, amount, balance];
+
+        }
 
         return new Promise((resolve, reject) => {
-            db.run(sql, [name, description, amount, balance], (err) => {
+            db.run(sql, params, (err) => {
                 if (err) {
                     alert(id);
                     reject(err);
