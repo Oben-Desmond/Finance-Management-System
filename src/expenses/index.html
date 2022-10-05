@@ -30,51 +30,48 @@
       <!-- <li><a href="./expenseList.html">Expenses</a></li> -->
     </ul>
   </header>
-  <div class="dashboard-wrapper">
-    <button class="accordion">Expenses</button>
-    <div class="panel">
-      <div class="table-wrapper">
-        <table id="studentExpenseList">
-          <thead>
-            <tr>
-              <th>NO</th>
-              <th>NAME</th>
-              <th>PERSON</th>
-              <th>DESCRIPTION</th>
-              <th>AMOUNT</th>
-            </tr>
-          </thead>
-          <tbody id="expenses-table"></tbody>
-        </table>
-      </div>
-    </div>
-    <button class="accordion">Release Budgets</button>
-    <div class="panel income">
-      <div class="form-wrapper">
-        <form id="expense-form">
-          <div class="input-div">
-            <select name="Budget-Heads" id="select-bh"></select>
-          </div>
-          <div class="input-div">
-            <input required type="text" id="bh-description" placeholder="Reason" />
-          </div>
-          <div class="input-div">
-            <input required type="text" id="bh-person" placeholder="Person" />
-          </div>
-          <div class="input-div">
-            <input required type="number" id="bh-amount" placeholder="Amount" />
-          </div>
-          <!-- <div class="input-div">
-                          <input required type="date" id="studentLevel" placeholder="Date" />
-                      </div> -->
-          <div id="bh-expense-error" style="color: red; margin-top: 20px" class="expense-error padding text-danger">
-          </div>
-          <div id="expense-success" class="expense-success padding text-success"></div>
 
-          <button class="btn-warning btn">Release Budget</button>
-        </form>
-      </div>
+  <button class="accordion">Release Budgets</button>
+  <div class="panel income">
+    <div class="form-wrapper">
+      <form id="expense-form">
+        <div class="input-div">
+          <select name="Budget-Heads" id="select-bh"></select>
+        </div>
+        <div class="input-div">
+          <input required type="text" id="bh-description" placeholder="Reason" />
+        </div>
+        <div class="input-div">
+          <input required type="text" id="bh-person" placeholder="Person" />
+        </div>
+        <div class="input-div">
+          <input required type="number" id="bh-amount" placeholder="Amount" />
+        </div>
+        <!-- <div class="input-div">
+                        <input required type="date" id="studentLevel" placeholder="Date" />
+                    </div> -->
+        <div id="bh-expense-error" style="color: red; margin-top: 20px" class="expense-error padding text-danger">
+        </div>
+        <div id="expense-success" class="expense-success padding text-success"></div>
+
+        <button class="btn-warning btn">Release Budget</button>
+      </form>
     </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table id="studentExpenseList">
+      <thead>
+        <tr>
+          <th>NO</th>
+          <th>NAME</th>
+          <th>PERSON</th>
+          <th>DESCRIPTION</th>
+          <th>AMOUNT</th>
+        </tr>
+      </thead>
+      <tbody id="expenses-table"></tbody>
+    </table>
   </div>
 
 
