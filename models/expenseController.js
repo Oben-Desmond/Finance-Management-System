@@ -55,8 +55,8 @@ class Controller {
     }
 
     addBudgetHeadIncome(budgetInput = budget) {
-        const sql = `INSERT INTO budget_head ( description, name, amount)
-        VALUES ('${budgetInput.description}','${budgetInput.name}', '${budgetInput.amount}'); `;
+        const sql = `INSERT INTO budget_head ( description, name, amount, balance)
+        VALUES ('${budgetInput.description}','${budgetInput.name}', '${budgetInput.amount}','${budgetInput.amount}'); `;
 
         return new Promise((res, rej) => {
             db.run(sql, [], (err, rows) => {
