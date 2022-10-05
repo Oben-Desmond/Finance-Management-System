@@ -18,13 +18,7 @@ for (i = 0; i < acc.length; i++) {
       panel.style.display = "block";
       panel.style.height = "auto";
     }
-    // for (j = 0; j < acc.length; j++) {
-    //     if (j != i) {
-    //         acc[j].classList.remove("active");
-    //         const panel = acc[j].nextElementSibling;
-    //         panel.style.display = "none";
-    //     }
-    // }
+
   });
 }
 
@@ -73,6 +67,23 @@ const deleteModalFunction = () => {
   };
 };
 
+// ############# MODAL FUNCTION ###################################################################
+const modalFunction = () => {
+  var modal = document.getElementById("editModal");
+  var span = document.getElementsByClassName("close")[0];
+  modal.style.display = "block";
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+};
+
+
+
 // ############# EDIT FUNCTION ###################################################################
 editBudgetHead = async (id) => {
   budget_heads = await window.api.getBudgetHeadById(id);
@@ -99,7 +110,7 @@ editBudgetHead = async (id) => {
       budget_head.id,
       budget_head.name,
       budget_head.description,
-      budget_head.amount
+      budget_head.amount,
     );
 
     var modal = document.getElementById("editModal");
@@ -131,4 +142,15 @@ deleteBudgetHead = function (id) {
     <button onclick="deleteHandler(${id})" class="deleteBtn">DELETE</button>
     </div>`;
   question.innerHTML = deleteBtn;
+
+  const button = document.querySelector(".deleteBtn")
+
+  console.log(button)
+  if (button) {
+    button.addEventListener('click', () => {
+      document.getElementById('deleteModal').style.display = 'none'
+    })
+  }
+
+
 };

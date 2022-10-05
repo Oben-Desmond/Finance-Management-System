@@ -73,6 +73,11 @@ async function getBudgetStats(total_sum, sum) {
       return `<option value='${bh.id}'>${bh.name}</option>`;
     }
   );
+  document.getElementById("select-bh").innerHTML = budgetHeadState.map(
+    (bh, index) => {
+      return `<option value='${bh.id}'>${bh.name}</option>`;
+    }
+  );
 }
 
 function formatMoney(price) {

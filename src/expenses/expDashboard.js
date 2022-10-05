@@ -55,8 +55,8 @@ async function submitExpense(e) {
   if (budgetHeadState) {
     currentBH = budgetHeadState.find((bh) => bh.id == name.value);
     if (currentBH) {
-      if (currentBH.amount < +amount.value) {
-        error.innerHTML = "Maximum allocatable amount is " + currentBH.amount;
+      if (currentBH.balance < +amount.value) {
+        error.innerHTML = "Maximum allocatable amount is " + currentBH.balance;
         return;
       }
     } else {
@@ -74,7 +74,8 @@ async function submitExpense(e) {
       currentBH.id,
       currentBH.name,
       currentBH.description,
-      currentBH.amount - +amount.value
+      currentBH.amount,
+      currentBH.balance - +amount.value
     );
     addExpense({
       name: currentBH.name,
@@ -182,4 +183,13 @@ deleteBudgetHead = function (id) {
     <button onclick="deleteHandler(${id})" class="deleteBtn">DELETE</button>
     </div>`;
   question.innerHTML = deleteBtn;
+
+  const button = document.querySelector(".deleteBtn")
+
+  console.log(button)
+  if (button) {
+    button.addEventListener('click', () => {
+      document.getElementById('deleteModal').style.display = 'none'
+    })
+  }
 };

@@ -2,156 +2,107 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>RHIBMS</title>
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <link rel="stylesheet" href="../../assets/css/registeredStudents.css" />
-    <link rel="stylesheet" href="../../assets/css/add.css" />
-    <script src="../jquery.js"></script>
-    <script
-      type="text/javascript"
-      src="../../DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"
-    ></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../../DataTables/DataTables-1.12.1/css/jquery.dataTables.min.css"
-    />
-  </head>
 
-  <body>
-    <header>
-      <img src="../../assets/images/rhibms.jpeg" alt="" />
-      <ul>
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="./mainDashboard.expenses.html">Summary</a></li>
-        <li><a href="./index.html">Expenses</a></li>
-        <li>
-          <a
-            style="color: green; text-decoration: underline"
-            href="./budget_head.html"
-            >Budget Head</a
-          >
-        </li>
-        <!-- <li>
+<head>
+  <title>RHIBMS</title>
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+  <link rel="stylesheet" href="../../assets/css/registeredStudents.css" />
+  <link rel="stylesheet" href="../../assets/css/add.css" />
+  <script src="../jquery.js"></script>
+  <script type="text/javascript" src="../../DataTables/DataTables-1.12.1/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../DataTables/DataTables-1.12.1/css/jquery.dataTables.min.css" />
+
+</head>
+
+<body>
+  <header>
+    <img src="../../assets/images/rhibms.jpeg" alt="" />
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="./mainDashboard.expenses.html">Summary</a>
+      </li>
+      <li><a href="./index.html">Expenses</a></li>
+      <li>
+        <a style="color: green; text-decoration: underline" href="./budget_head.html">Budget Head</a>
+      </li>
+      <!-- <li>
           <a href="./bhList.html">Budget Heads</a>
         </li>
         <li><a href="./expenseList.html">Expenses</a></li> -->
-      </ul>
-    </header>
-    <div class="dashboard-wrapper">
-      <div class="spacer"></div>
-      <button class="accordion">Budget Heads</button>
-      <div class="panel">
-        <div class="table-wrapper">
-          <table id="studentList">
-            <thead>
-              <tr>
-                <th>NO</th>
-                <th>NAME</th>
-                <th>DESCRIPTION</th>
-                <th>AMOUNT</th>
-                <th>BALANCE</th>
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody id="expense-table"></tbody>
-            <tfoot id="bhtotalSums"></tfoot>
-          </table>
+    </ul>
+  </header>
+  <button class="accordion">Create Budget Heads</button>
+  <div class="panel">
+    <div class="form-wrapper">
+      <form id="budget-head-form">
+        <div class="input-div">
+          <input required type="text" id="create-bh-name" placeholder="NAME OF B.H" />
         </div>
-      </div>
-      <button class="accordion">Create Budget Heads</button>
-      <div class="panel">
-        <div class="form-wrapper">
-          <form id="budget-head-form">
-            <div class="input-div">
-              <input
-                required
-                type="text"
-                id="create-bh-name"
-                placeholder="NAME OF B.H"
-              />
-            </div>
-            <div class="input-div">
-              <input
-                required
-                type="number"
-                id="create-bh-amount"
-                placeholder="Assigned Amount"
-              />
-            </div>
-            <div class="input-div">
-              <input
-                required
-                type="text"
-                id="create-bh-desc"
-                placeholder="Description"
-              />
-            </div>
-            <div
-              id="create-bh-expense-error"
-              style="margin-top: 20dp; color: red"
-              class="expense-error padding-top text-danger"
-            ></div>
-            <div
-              id="create-bh-expense-error"
-              style="margin-top: 20dp; color: red"
-              class="expense-error padding-top text-danger"
-            ></div>
-            <button type="submit">Add Budget Head</button>
-          </form>
+        <div class="input-div">
+          <input required type="number" id="create-bh-amount" placeholder="Assigned Amount" />
         </div>
+        <div class="input-div">
+          <input required type="text" id="create-bh-desc" placeholder="Description" />
+        </div>
+        <div id="create-bh-expense-error" style="margin-top: 20dp; color: red"
+          class="expense-error padding-top text-danger"></div>
+        <div id="create-bh-expense-error" style="margin-top: 20dp; color: red"
+          class="expense-error padding-top text-danger"></div>
+        <button type="submit">Add Budget Head</button>
+      </form>
+    </div>
+  </div>
+  <div class="spacer"></div>
+
+  <div class="table-wrapper">
+    <table id="studentList">
+      <thead>
+        <tr>
+          <th>NO</th>
+          <th>NAME</th>
+          <th>DESCRIPTION</th>
+          <th>AMOUNT</th>
+          <th>BALANCE</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody id="expense-table"></tbody>
+      <tfoot id="bhtotalSums"></tfoot>
+    </table>
+  </div>
+
+
+
+  <!-- The Modal -->
+  <div id="editModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="form-wrapper">
+        <form id="updateForm">
+          <div class="input-div">
+            <input required type="text" id="edit-bh-name" placeholder="Budget Head Name" value="" />
+          </div>
+          <div class="input-div">
+            <input required type="text" id="edit-bh-desc" placeholder="Description" value="" />
+          </div>
+          <div class="input-div">
+            <input required type="number" id="edit-bh-amount" placeholder="Amount" value="" />
+          </div>
+          <button type="submit">Update Budget Head</button>
+        </form>
       </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div id="deleteModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="closeDelete">&times;</span>
+      <div id="question"></div>
     </div>
 
-    <!-- The Modal -->
-    <div id="editModal" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="form-wrapper">
-          <form id="updateForm">
-            <div class="input-div">
-              <input
-                required
-                type="text"
-                id="edit-bh-name"
-                placeholder="Budget Head Name"
-                value=""
-              />
-            </div>
-            <div class="input-div">
-              <input
-                required
-                type="text"
-                id="edit-bh-desc"
-                placeholder="Description"
-                value=""
-              />
-            </div>
-            <div class="input-div">
-              <input
-                required
-                type="number"
-                id="edit-bh-amount"
-                placeholder="Amount"
-                value=""
-              />
-            </div>
-            <button type="submit">Update Budget Head</button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- The Modal -->
-    <div id="deleteModal" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="closeDelete">&times;</span>
-        <div id="question"></div>
-      </div>
-    </div>
     <script>
       // const expense_error = document.getElementById("expense_error");
       let budgetHeadState = [];
@@ -160,8 +111,9 @@
     <script src="./bh_renderer.js"></script>
     <script src="./budgetHeadDashboard.js"></script>
     <script>
-      $(document).ready(function () {});
+      $(document).ready(function () { });
     </script>
     <script></script>
-  </body>
+</body>
+
 </html>

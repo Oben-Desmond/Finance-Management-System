@@ -55,8 +55,8 @@ class Controller {
     }
 
     addBudgetHeadIncome(budgetInput = budget) {
-        const sql = `INSERT INTO budget_head ( description, name, amount)
-        VALUES ('${budgetInput.description}','${budgetInput.name}', '${budgetInput.amount}'); `;
+        const sql = `INSERT INTO budget_head ( description, name, amount, balance)
+        VALUES ('${budgetInput.description}','${budgetInput.name}', '${budgetInput.amount}','${budgetInput.amount}'); `;
 
         return new Promise((res, rej) => {
             db.run(sql, [], (err, rows) => {
@@ -85,6 +85,7 @@ class Controller {
                         description: row.description,
                         id: row.id,
                         name: row.name,
+                        balance: row.balance
                     };
                 });
                 resolve(res);
@@ -114,15 +115,16 @@ class Controller {
         });
     }
 
-    updateBudgetHead(id, name, description, amount) {
+    updateBudgetHead(id, name, description, amount, balance) {
         const sql = `UPDATE budget_head SET 
         name = ?,
         description = ?,
-        amount = ?
+        amount = ?,
+        balance = ?
         WHERE id = ${id}`;
 
         return new Promise((resolve, reject) => {
-            db.run(sql, [name, description, amount], (err) => {
+            db.run(sql, [name, description, amount, balance], (err) => {
                 if (err) {
                     alert(id);
                     reject(err);
