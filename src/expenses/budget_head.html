@@ -31,49 +31,46 @@
         <li><a href="./expenseList.html">Expenses</a></li> -->
     </ul>
   </header>
-  <div class="dashboard-wrapper">
-
-    <div class="spacer"></div>
-    <button class="accordion">Budget Heads</button>
-    <div class="panel">
-      <div class="table-wrapper">
-        <table id="studentList">
-          <thead>
-            <tr>
-              <th>NO</th>
-              <th>NAME</th>
-              <th>DESCRIPTION</th>
-              <th>AMOUNT</th>
-              <th>BALANCE</th>
-              <th>ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody id="expense-table"></tbody>
-        </table>
-      </div>
-    </div>
-    <button class="accordion">Create Budget Heads</button>
-    <div class="panel">
-      <div class="form-wrapper">
-        <form id="budget-head-form">
-          <div class="input-div">
-            <input required type="text" id="create-bh-name" placeholder="NAME OF B.H" />
-          </div>
-          <div class="input-div">
-            <input required type="number" id="create-bh-amount" placeholder="Assigned Amount" />
-          </div>
-          <div class="input-div">
-            <input required type="text" id="create-bh-desc" placeholder="Description" />
-          </div>
-          <div id="create-bh-expense-error" style="margin-top: 20dp; color: red"
-            class="expense-error padding-top text-danger"></div>
-          <div id="create-bh-expense-error" style="margin-top: 20dp; color: red"
-            class="expense-error padding-top text-danger"></div>
-          <button type="submit">Add Budget Head</button>
-        </form>
-      </div>
+  <button class="accordion">Create Budget Heads</button>
+  <div class="panel">
+    <div class="form-wrapper">
+      <form id="budget-head-form">
+        <div class="input-div">
+          <input required type="text" id="create-bh-name" placeholder="NAME OF B.H" />
+        </div>
+        <div class="input-div">
+          <input required type="number" id="create-bh-amount" placeholder="Assigned Amount" />
+        </div>
+        <div class="input-div">
+          <input required type="text" id="create-bh-desc" placeholder="Description" />
+        </div>
+        <div id="create-bh-expense-error" style="margin-top: 20dp; color: red"
+          class="expense-error padding-top text-danger"></div>
+        <div id="create-bh-expense-error" style="margin-top: 20dp; color: red"
+          class="expense-error padding-top text-danger"></div>
+        <button type="submit">Add Budget Head</button>
+      </form>
     </div>
   </div>
+  <div class="spacer"></div>
+
+  <div class="table-wrapper">
+    <table id="studentList">
+      <thead>
+        <tr>
+          <th>NO</th>
+          <th>NAME</th>
+          <th>DESCRIPTION</th>
+          <th>AMOUNT</th>
+          <th>BALANCE</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody id="expense-table"></tbody>
+    </table>
+  </div>
+
+
 
   <!-- The Modal -->
   <div id="editModal" class="modal">
@@ -104,20 +101,17 @@
       <span class="closeDelete">&times;</span>
       <div id="question"></div>
     </div>
-  </div>
-  <script>
-    // const expense_error = document.getElementById("expense_error");
-    let budgetHeadState = [];
-    let expensesState = [];
-  </script>
-  <script src="./bh_renderer.js"></script>
-  <script src="./budgetHeadDashboard.js"></script>
-  <script>
-    $(document).ready(function () {
-
-    });
-  </script>
-  <script></script>
+    <script>
+      // const expense_error = document.getElementById("expense_error");
+      let budgetHeadState = [];
+      let expensesState = [];
+    </script>
+    <script src="./bh_renderer.js"></script>
+    <script src="./budgetHeadDashboard.js"></script>
+    <script>
+      $(document).ready(function () { });
+    </script>
+    <script></script>
 </body>
 
 </html>

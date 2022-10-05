@@ -37,19 +37,15 @@ async function updateExpensesView() {
     sum += +exp.amount;
   });
 
-  tableEl.innerHTML += `<tr>
-  <td></td>
-  <td> </td>
-  <td></td>
-  <td></td>
+  let tableElSum = document.getElementById("exptotalSums");
+  tableElSum.innerHTML = `<tr>
+  <td colspan="4">SUM TOTAL</td>
   <td>${formatMoney(sum)}</td>
   </tr>`;
 
-
   if (initialized) {
-    return
+    return;
   }
-
 
   try {
     $("#studentExpenseList").DataTable({
@@ -59,16 +55,21 @@ async function updateExpensesView() {
       ],
       iDisplayLength: 75,
       dom: "Bfrtip",
+      buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdfHtml5"],
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 
   initialized = true;
-
 }
 
 async function getBudgetStats(total_sum, sum) {
+  document.getElementById("select-bh").innerHTML = budgetHeadState.map(
+    (bh, index) => {
+      return `<option value='${bh.id}'>${bh.name}</option>`;
+    }
+  );
   document.getElementById("select-bh").innerHTML = budgetHeadState.map(
     (bh, index) => {
       return `<option value='${bh.id}'>${bh.name}</option>`;
